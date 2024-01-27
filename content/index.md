@@ -6,7 +6,7 @@ date modified: Saturday, January 27th 2024, 12:52:26 pm
 
 I'm a Software Engineer who loves all things technology related.
 
-In my free time I like to [[learning-in-public/research/index|experiment with new technologies]] and [[learning-in-public/projects/index|make things]].
+In my free time I like to [[content/Learning in Public/research/index|experiment with new technologies]] and [[content/Learning in Public/projects/index|make things]].
 
 I'm currently working on:
 
