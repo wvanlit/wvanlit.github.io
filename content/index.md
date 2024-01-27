@@ -1,12 +1,12 @@
 ---
 title: "👋 Hi there! I'm Wessel"
 date created: Saturday, January 27th 2024, 11:34:37 am
-date modified: Saturday, January 27th 2024, 3:14:58 pm
+date modified: Saturday, January 27th 2024, 3:22:32 pm
 ---
 
 I'm a Software Engineer who loves all things technology related.
 
-In my free time I like to [[content/Learning in Public/research/index|experiment with new technologies]] and [[content/Learning in Public/projects/index|make things]].
+In my free time I like to [[Learning-in-Public/research/index|experiment with new technologies]] and [[Learning-in-Public/projects/index|make things]].
 
 I'm currently working on:
 
