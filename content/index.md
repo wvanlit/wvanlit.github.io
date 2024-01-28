@@ -11,7 +11,7 @@ In my free time I like to [[Learning-in-Public/research/index|experiment with n
 I'm currently working on:
 
 - [[HULAS]], an easy to use web stack built on HTMX, Lua & SQLite
-- [[Tiny Rogue]], a traditional rogue-like using an engine built in [[FSharp|F#]]
+- [[Tiny Rogue]], a traditional rogue-like using a decoupled engine
 - [[litdev.nl]], this website!
 
 In case you are interested you can view my [[Work Experience]]

@@ -16,5 +16,6 @@ It's built upon the concepts of [[HATEOAS]] and [[CGI]].
 ## Why?
 
 1. I'm looking for an excuse to do something with HTMX.
-2. I think [[CGI]] is a cool alternative way of building web apis, as for the developer it is as simple as `print("<h1>Hello World</h1>")`
-3. It don't like Javascript 😬
+2. I think [[CGI]] is a cool alternative way of building web apis
+   - for the developer it's just a `print("<h1>Hello World</h1>")`
+3. I don't like writing Javascript 😬
