@@ -1,7 +1,7 @@
 ---
-date created: Saturday, January 27th 2024, 12:31:00 pm
-date modified: Saturday, January 27th 2024, 12:32:19 pm
+date created: 2024-01-27
 title: "Projects I've built"
+toc: true
 ---
 
 These are all the projects I've built

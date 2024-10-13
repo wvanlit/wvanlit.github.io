@@ -6,12 +6,12 @@ import (
 )
 
 type Post struct {
-	Title       string
-	Path        string
-	HtmlContent template.HTML // TODO replace with generic ast?
-	Tags        []string
-	CreatedAt   string
-	ModifiedAt  string
+	Title               string
+	Path                string
+	HtmlContent         template.HTML // TODO replace with generic ast?
+	Tags                []string
+	CreatedAt           string
+	ShowTableOfContents bool
 }
 
 type PostParser interface {

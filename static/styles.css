@@ -1,28 +1,47 @@
-html {
-    padding-inline: 1rem;
-    padding-top: 0.5rem;
-}
+@layer pico, custom;
 
-body {
-    max-width: 60ch;
-    margin-inline: auto;
-}
+@import url("https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css") layer(pico);
 
-header {
-    .title {
-        text-decoration: unset;
-        font-size: var(--pico-font-size);
+@layer custom {
+    :root {
+        --pico-font-family-sans-serif: "Montserrat", Ubuntu, sans-serif, var(--pico-font-family-emoji);
     }
 
-    nav {
-        display: flex;
-        flex-direction: row;
-        justify-items: start;
-        justify-content: start;
+    body {
+        max-width: 70ch;
+        margin-inline: auto;
 
-        a {
-            padding-right: 8px;
-            text-decoration: unset;
+        main {
+            padding-block: 0.25rem;
+        }
+
+        header {
+            padding-block-end: 0.25rem;
+
+            .title {
+                color: var(--pico-h1-color);
+            }
+        }
+    }
+
+    footer>section {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: var(--pico-secondary);
+        }
+    }
+
+    main {
+        time {
+            display: block;
+            font-family: var(--pico-font-family-monospace);
+            margin-block: 1rem;
         }
     }
 }

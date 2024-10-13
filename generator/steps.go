@@ -10,7 +10,6 @@ import (
 	fs "site-generator/filesystem"
 	parser "site-generator/parser"
 	tmpl "site-generator/templates"
-	"strings"
 )
 
 func reportDone(text string) {
@@ -81,95 +80,7 @@ func writeSite(posts []parser.Post, templates []htmlTemplate.Template) []string 
 		panic(err)
 	}
 
-	var layoutTemplate *htmlTemplate.Template = nil
-	var postTemplate *htmlTemplate.Template = nil
-	var indexTemplate *htmlTemplate.Template = nil
-
-	for _, t := range templates {
-		switch name := t.Name(); name {
-		case "layout.html":
-			layoutTemplate = &t
-		case "post.html":
-			postTemplate = &t
-		case "index.html":
-			indexTemplate = &t
-		}
-	}
-
-	if layoutTemplate == nil {
-		panic("Layout template cannot be found!")
-	}
-
-	if postTemplate == nil {
-		panic("Post template cannot be found!")
-	}
-
-	if indexTemplate == nil {
-		panic("Index template cannot be found!")
-	}
-
-	navSet := make(map[string]bool, 0)
-
-	for _, p := range posts {
-		navSet[path.Dir(p.Path)] = true
-	}
-
-	nav := make([]string, 0)
-
-	for n := range navSet {
-		if strings.Contains(n, string(os.PathSeparator)) || n == "." {
-			continue
-		}
-		nav = append(nav, n)
-	}
-
-	writtenPosts := make([]string, 0)
-
-	for _, p := range posts {
-
-		postPath := path.Join(*outputArg, p.Path+".html")
-
-		dir := path.Dir(postPath)
-
-		os.MkdirAll(dir, dirMode)
-
-		file, err := os.Create(postPath)
-
-		if err != nil {
-			panic(err)
-		}
-
-		template := postTemplate
-
-		if strings.HasSuffix(p.Path, "index") {
-			template = indexTemplate
-		}
-
-		builder := new(strings.Builder)
-
-		if err = template.Execute(builder, p); err != nil {
-			panic(err)
-		}
-
-		inner := builder.String()
-		builder = new(strings.Builder)
-
-		type layout struct {
-			Title       string
-			Nav         []string
-			HtmlContent htmlTemplate.HTML
-		}
-
-		if err = layoutTemplate.Execute(builder, layout{Title: p.Title, HtmlContent: htmlTemplate.HTML(inner), Nav: nav}); err != nil {
-			panic(err)
-		}
-
-		if _, err := file.WriteString(builder.String()); err != nil {
-			panic(err)
-		}
-
-		writtenPosts = append(writtenPosts, postPath)
-	}
+	writtenPosts := tmpl.GenerateSite(*outputArg, posts, templates)
 
 	return writtenPosts
 }

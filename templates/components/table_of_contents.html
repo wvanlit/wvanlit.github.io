@@ -1,0 +1,18 @@
+<table class="striped">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col" style="width: 25ch;">Date</th>
+        </tr>
+    </thead>
+    {{range .}}
+    <tr>
+        <th scope="row"><a href="/{{.Path}}.html">{{.Title}}</a></th>
+        <td>{{.CreatedAt}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="2" style="text-align: center;">nothing (yet)</td>
+    </tr>
+    {{end}}
+</table>

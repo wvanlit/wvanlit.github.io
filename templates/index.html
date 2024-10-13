@@ -1,3 +1,7 @@
 <h1>{{.Title}}</h1>
 
 {{.HtmlContent}}
+
+{{if .ShowTableOfContents}}
+{{template "table_of_contents.html" .Children}}
+{{end}}

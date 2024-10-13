@@ -31,10 +31,10 @@ func (mpp markdownPostParser) Parse(file filesystem.File) (Post, error) {
 	d := frontmatter.Get(ctx)
 
 	var meta struct {
-		Title      string   `yaml:"title"`
-		Tags       []string `yaml:"tags"`
-		CreatedAt  string   `yaml:"date created"`
-		ModifiedAt string   `yaml:"date modified"`
+		Title           string   `yaml:"title"`
+		Tags            []string `yaml:"tags"`
+		CreatedAt       string   `yaml:"date created"`
+		TableOfContents bool     `yaml:"toc"`
 	}
 
 	if err := d.Decode(&meta); err != nil {
@@ -42,12 +42,12 @@ func (mpp markdownPostParser) Parse(file filesystem.File) (Post, error) {
 	}
 
 	return Post{
-		Title:       meta.Title,
-		Path:        postPath,
-		HtmlContent: template.HTML(buf.String()),
-		Tags:        meta.Tags,
-		CreatedAt:   meta.CreatedAt,
-		ModifiedAt:  meta.ModifiedAt,
+		Title:               meta.Title,
+		Path:                postPath,
+		HtmlContent:         template.HTML(buf.String()),
+		Tags:                meta.Tags,
+		CreatedAt:           meta.CreatedAt,
+		ShowTableOfContents: meta.TableOfContents,
 	}, nil
 }
 

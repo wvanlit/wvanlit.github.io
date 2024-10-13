@@ -18,7 +18,7 @@ follow_symlink = false
 include_dir = ["content", "generator", "templates", "static"]
 include_ext = ["go", "tpl", "tmpl", "html", "js", "css", "md"]
 log = "build-errors.log"
-stop_on_error = false
+stop_on_error = true
 
 [color]
 app = ""

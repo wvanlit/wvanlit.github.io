@@ -20,6 +20,7 @@ var knownFileTypes = []fileType{Markdown, Html}
 var foldersToIgnore = map[string]bool{
 	".obsidian": true,
 	".trash":    true,
+	"meta":      true, // Obsidian meta folder
 }
 
 type File struct {
