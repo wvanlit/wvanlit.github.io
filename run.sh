@@ -1,3 +1,5 @@
+umask 0022
+
 echo "cleaning existing folders"
 
 rm -rf ./bin ./out

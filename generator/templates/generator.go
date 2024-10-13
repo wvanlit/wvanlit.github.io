@@ -13,7 +13,7 @@ func GenerateSite(
 	outputPath string,
 	posts []parser.Post,
 	templates []htmlTemplate.Template) []string {
-	const dirMode = 0040000 /* Dir */
+	const dirMode = 0755 /* Dir */
 
 	namedTemplates := getNamedTemplates(templates)
 
