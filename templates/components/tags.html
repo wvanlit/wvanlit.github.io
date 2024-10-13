@@ -1,5 +1,3 @@
 <ul class="tags">
-    {{range .}}
-    <li><a href="./?tag={{.}}"><code>{{.}}</code></a></li>
-    {{end}}
+    {{range .}}<li>{{template "tag.html" .}}</li>{{end}}
 </ul>
