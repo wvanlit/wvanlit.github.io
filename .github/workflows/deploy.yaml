@@ -33,7 +33,7 @@ jobs:
           chmod -R u+w out
       - name: Debug Permissions
         run: |
-          ls -l out
+          ls -l
           whoami
       - name: Generate Site
         shell: bash

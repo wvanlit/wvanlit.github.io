@@ -27,9 +27,13 @@ func GenerateSite(
 
 		dir := path.Dir(postPath)
 
-		os.MkdirAll(dir, dirMode)
+		err := os.MkdirAll(dir, dirMode)
 
-		file, err := os.Create(postPath)
+		if err != nil {
+			panic(err)
+		}
+
+		file, err := os.Create("./" + postPath)
 
 		if err != nil {
 			panic(err)
