@@ -26,15 +26,15 @@ jobs:
       - name: Install dependencies
         run: go get
         working-directory: ./generator
-      - name: Debug Permissions
-        run: |
-          ls -l out
-          whoami
       - name: Prepare output directory
         run: |
           rm -rf out
           mkdir -p out
           chmod -R u+w out
+      - name: Debug Permissions
+        run: |
+          ls -l out
+          whoami
       - name: Generate Site
         shell: bash
         run: sh run.sh --verbose
