@@ -18,8 +18,10 @@
         header {
             padding-block-end: 0.25rem;
 
-            .title {
+            .title h1 {
                 color: var(--pico-h1-color);
+                font-size: 1.25em;
+                margin-bottom: 0;
             }
         }
     }
@@ -41,7 +43,39 @@
         time {
             display: block;
             font-family: var(--pico-font-family-monospace);
-            margin-block: 1rem;
+            margin-block: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1.5em;
+        }
+
+        h2 {
+            margin-top: 1rem;
+            font-size: 1.25em;
+        }
+
+        h3 {
+            margin-top: 1rem;
+            font-size: 1em;
+        }
+
+        .tags {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+
+            li {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+
+                code {
+                    margin: 0.25em;
+                    padding: 0.25em;
+                }
+            }
         }
     }
 }

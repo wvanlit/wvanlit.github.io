@@ -1,6 +1,6 @@
 ---
 title: HULAS
-tags: [project]
+tags: [project, htmx]
 date created: 2024-01-27
 ---
 
@@ -10,7 +10,7 @@ A "modern" web stack based on **H**TMX, **U**nix, **L**ua, **A**I (Chat-GPT) and
 
 It's built upon the concepts of HATEOAS and CGI.
 
-Why?
+### Why?
 
 1. I'm looking for an excuse to do something with HTMX.
 2. I think CGI is a cool alternative way of building web apis
