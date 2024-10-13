@@ -1,11 +1,9 @@
 ---
-title: Work Experience
+title: Work Experience 🚀
 tags: []
 date created: Saturday, January 27th 2024, 12:29:00 pm
 date modified: Saturday, January 27th 2024, 1:51:21 pm
 ---
-
-## Work Experience 🚀
 
 ### Software Engineer @ Coolblue 📦 | _August 2022 - Present_
 
@@ -24,7 +22,7 @@ date modified: Saturday, January 27th 2024, 1:51:21 pm
 
 #### Project 2 - Nederlandse Spoorwegen (Dutch Railways) 🚂
 
-- 🧭 Led the charge in moving an Manufacturing Execution System (MES) system’s front-end from Internet Explorer to Chrome **ES6 Javascript**.
+- 🧭 Led the charge in moving an Manufacturing Execution System (MES) system’s front-end from Internet Explorer to Chrome & **ES6 Javascript**.
 - 🛠️ Built manageable workflow tools for factory employees using **TypeScript** and **React**, making their work simpler.
 
 ### Graduate Intern @ ICT Group 🎓| _August 2020 - February 2021_
@@ -37,13 +35,13 @@ date modified: Saturday, January 27th 2024, 1:51:21 pm
 - 💡 Researched using light (both lamps & led-strips) to speed up picking orders in the warehouse.
 - 🎛️ Created **C#**/.NET software to control a DMX spotlight, highlighting products.
 - 🤖 Developed a **C#**/UWP app for Raspberry Pi to talk to Teensy microcontrollers over RabbitMQ.
-- 🔦 Programmed Teensy microcontrollers in **C++** to assign shelves using led-strips
+- 🔦 Programmed Teensy microcontrollers in **C++** to assign picking shelves using led-strips
 
 ### Technical Product Owner & Analyst @ Billink 📊 | _February 2019 - February 2020_
 
 - 📈 Took charge of the credit check system and managed the work of 2 remote devs.
 - 📊 Dug into data with Tableau and SQL to find bugs and boost both operational and technical performance.
-- 🚀 Built an asynchronous microservice in **Go** with a custom rules engine to replace the old cred check.
+- 🚀 Built an asynchronous microservice in **Go** with a custom rules engine to replace the old credit check.
 
 ### Peer Coach @ Hogeschool Rotterdam 👨‍🏫 | _August 2018 - August 2019_
 
