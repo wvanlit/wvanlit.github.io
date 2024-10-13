@@ -26,10 +26,10 @@ jobs:
       - name: Install dependencies
         run: go get
         working-directory: ./generator
-      - name: Build Binary
+      - name: Build binary
         shell: bash
         run: go build -C ./generator -o ../bin/site-generator
-      - name: Generate Site
+      - name: Generate site
         shell: bash
         run: |
           sudo ./bin/site-generator \
@@ -38,10 +38,8 @@ jobs:
             --static static/ \
             --output public/ \
             --verbose
-      - name: Directory Check
-        run: |
-          sudo chmod 777 ./public
-          ls -l ./public
+      - name: Make public directory readable
+        run: sudo chmod 777 ./public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
