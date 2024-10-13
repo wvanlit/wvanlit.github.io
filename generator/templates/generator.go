@@ -10,6 +10,13 @@ import (
 	"strings"
 )
 
+var allPostsToc = parser.Post{
+	Title:               "Posts",
+	Path:                "posts/index",
+	HtmlContent:         "",
+	ShowTableOfContents: true,
+}
+
 func GenerateSite(
 	outputPath string,
 	posts []parser.Post,
@@ -17,6 +24,8 @@ func GenerateSite(
 	namedTemplates := getNamedTemplates(templates)
 
 	nav := getNavigationHeader(posts)
+
+	posts = append(posts, allPostsToc)
 
 	writtenPosts := make([]string, 0)
 
@@ -95,11 +104,17 @@ func (nt namedTemplates) generatePost(post parser.Post, posts []parser.Post) str
 	ctx := postContext{Post: post}
 
 	if ctx.ShowTableOfContents {
+		filter := post.Title != allPostsToc.Title
+
 		ctx.Children = make([]parser.Post, 0)
 		dir := path.Dir(post.Path)
 
 		for _, child := range posts {
-			if strings.Contains(child.Path, dir) && child.Path != post.Path {
+			if strings.HasSuffix(child.Path, "index") {
+				continue
+			}
+
+			if !filter || (strings.Contains(child.Path, dir) && child.Path != post.Path) {
 				ctx.Children = append(ctx.Children, child)
 			}
 		}

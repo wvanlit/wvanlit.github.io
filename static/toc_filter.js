@@ -9,7 +9,7 @@ function filter() {
     let filteredAnything = false;
 
     document.querySelectorAll(".toc tbody tr").forEach(row => {
-        const hasTag = row.querySelector(`.tags a[href="./?tag=${tag}"]`);
+        const hasTag = row.querySelector(`.tags a[href="/posts/?tag=${tag}"]`);
         if (!hasTag) {
             row.classList.add("hide");
 
