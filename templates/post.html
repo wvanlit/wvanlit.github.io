@@ -1,10 +1,6 @@
 <h1>{{.Title}}</h1>
 
-<ul class="tags">
-    {{range .Tags}}
-    <li><code>{{.}}</code></li>
-    {{end}}
-</ul>
+{{template "tags.html" .Tags}}
 
 <time datetime="{{.CreatedAt}}">{{.CreatedAt}}</time>
 

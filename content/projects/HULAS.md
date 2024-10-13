@@ -1,6 +1,6 @@
 ---
 title: HULAS
-tags: [project, htmx]
+tags: [htmx, lua, sqlite, cgi, hateoas]
 date created: 2024-01-27
 ---
 
