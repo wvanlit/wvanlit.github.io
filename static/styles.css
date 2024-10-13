@@ -2,3 +2,27 @@ html {
     padding-inline: 1rem;
     padding-top: 0.5rem;
 }
+
+body {
+    max-width: 60ch;
+    margin-inline: auto;
+}
+
+header {
+    .title {
+        text-decoration: unset;
+        font-size: var(--pico-font-size);
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-items: start;
+        justify-content: start;
+
+        a {
+            padding-right: 8px;
+            text-decoration: unset;
+        }
+    }
+}

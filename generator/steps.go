@@ -108,6 +108,21 @@ func writeSite(posts []parser.Post, templates []htmlTemplate.Template) []string 
 		panic("Index template cannot be found!")
 	}
 
+	navSet := make(map[string]bool, 0)
+
+	for _, p := range posts {
+		navSet[path.Dir(p.Path)] = true
+	}
+
+	nav := make([]string, 0)
+
+	for n := range navSet {
+		if strings.Contains(n, string(os.PathSeparator)) || n == "." {
+			continue
+		}
+		nav = append(nav, n)
+	}
+
 	writtenPosts := make([]string, 0)
 
 	for _, p := range posts {
@@ -141,10 +156,11 @@ func writeSite(posts []parser.Post, templates []htmlTemplate.Template) []string 
 
 		type layout struct {
 			Title       string
+			Nav         []string
 			HtmlContent htmlTemplate.HTML
 		}
 
-		if err = layoutTemplate.Execute(builder, layout{Title: p.Title, HtmlContent: htmlTemplate.HTML(inner)}); err != nil {
+		if err = layoutTemplate.Execute(builder, layout{Title: p.Title, HtmlContent: htmlTemplate.HTML(inner), Nav: nav}); err != nil {
 			panic(err)
 		}
 
