@@ -39,7 +39,9 @@ jobs:
             --output public/ \
             --verbose
       - name: Directory Check
-        run: ls -l ./public
+        run: |
+          sudo chmod 777 ./public
+          ls -l ./public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
