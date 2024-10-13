@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"fmt"
 	htmlTemplate "html/template"
 	"os"
 	"path"
@@ -13,8 +14,6 @@ func GenerateSite(
 	outputPath string,
 	posts []parser.Post,
 	templates []htmlTemplate.Template) []string {
-	const dirMode = 0755 /* Dir */
-
 	namedTemplates := getNamedTemplates(templates)
 
 	nav := getNavigationHeader(posts)
@@ -27,16 +26,14 @@ func GenerateSite(
 
 		dir := path.Dir(postPath)
 
-		err := os.MkdirAll(dir, dirMode)
-
+		err := os.MkdirAll(dir, 0o777)
 		if err != nil {
-			panic(err)
+			panic(fmt.Errorf("failed to create directories %s: %w", dir, err))
 		}
 
-		file, err := os.Create("./" + postPath)
-
+		file, err := os.Create(postPath)
 		if err != nil {
-			panic(err)
+			panic(fmt.Errorf("failed to create file %s: %w", postPath, err))
 		}
 
 		inner := namedTemplates.generatePost(p, posts)
