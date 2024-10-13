@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "16c3125e9995a89b",
+        "id": "7952412e41ba86fc",
         "type": "tabs",
         "children": [
           {
-            "id": "ede1f529534cdce3",
+            "id": "546bf4bf4a392a54",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "About Me/Work Experience.md",
+                "file": "learning/research/index.md",
                 "mode": "source",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "About Me/Work Experience.md",
+                "file": "learning/research/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "About Me/Work Experience.md",
+                "file": "learning/research/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "About Me/Work Experience.md"
+                "file": "learning/research/index.md"
               }
             }
           }
@@ -146,10 +146,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ede1f529534cdce3",
+  "active": "546bf4bf4a392a54",
   "lastOpenFiles": [
+    "work/experience.md",
+    "work/work_experience.md",
+    "learning/projects/index.md",
+    "learning/research/index.md",
+    "learning/index.md",
     "index.md",
+    "learning/research",
+    "learning/projects/HULAS.md",
+    "learning/notes/index.md",
+    "learning/notes/FSharp.md",
+    "learning/blog/index.md",
+    "learning/projects",
+    "learning/notes",
+    "learning/blog",
+    "learning",
     "About Me/Work Experience.md",
+    "work/Work Experience.md",
+    "work",
     "Learning-in-Public/index.md",
     "Learning-in-Public/research/index.md",
     "Learning-in-Public/research/CGI.md",

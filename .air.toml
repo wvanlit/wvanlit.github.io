@@ -1,0 +1,45 @@
+root = "."
+tmp_dir = "bin/tmp"
+
+[build]
+args_bin = [
+  "--content content/",
+  "--templates templates/",
+  "--static static/",
+  "--output out/",
+  "--serve",
+]
+bin = "./bin/site-generator"
+cmd = "go build -C ./generator -o ../bin/site-generator"
+delay = 1000
+exclude_regex = ["_test.go"]
+exclude_unchanged = true
+follow_symlink = false
+include_dir = ["content", "generator", "templates", "static"]
+include_ext = ["go", "tpl", "tmpl", "html", "js", "css", "md"]
+log = "build-errors.log"
+stop_on_error = false
+
+[color]
+app = ""
+build = "yellow"
+main = "magenta"
+runner = "green"
+watcher = "cyan"
+
+[log]
+main_only = false
+time = false
+
+[misc]
+clean_on_exit = true
+
+[screen]
+clear_on_rebuild = false
+keep_scroll = true
+
+[proxy]
+# Enable live-reloading on the browser.
+enabled = true
+proxy_port = 8090
+app_port = 8080

@@ -2,15 +2,20 @@ package main
 
 import (
 	"fmt"
-	"html/template"
+	htmlTemplate "html/template"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	fs "site-generator/filesystem"
 	parser "site-generator/parser"
 	tmpl "site-generator/templates"
 	"strings"
 )
+
+func reportDone(text string) {
+	fmt.Println(text)
+}
 
 func reportSectionDone[K any](section string, items []K, sprint func(K) string) {
 	fmt.Println(section)
@@ -58,7 +63,7 @@ func parsePosts(files []fs.File) []parser.Post {
 	return posts
 }
 
-func parseTemplates(files []fs.File) []template.Template {
+func parseTemplates(files []fs.File) []htmlTemplate.Template {
 	templates, err := tmpl.ParseTemplates(files)
 
 	if err != nil {
@@ -68,7 +73,7 @@ func parseTemplates(files []fs.File) []template.Template {
 	return templates
 }
 
-func writeSite(posts []parser.Post, templates []template.Template) []string {
+func writeSite(posts []parser.Post, templates []htmlTemplate.Template) []string {
 	const dirMode = 0040000 /* Dir */
 
 	err := os.MkdirAll(*outputArg, dirMode)
@@ -76,16 +81,23 @@ func writeSite(posts []parser.Post, templates []template.Template) []string {
 		panic(err)
 	}
 
-	var postTemplate *template.Template = nil
-	var indexTemplate *template.Template = nil
+	var layoutTemplate *htmlTemplate.Template = nil
+	var postTemplate *htmlTemplate.Template = nil
+	var indexTemplate *htmlTemplate.Template = nil
 
 	for _, t := range templates {
 		switch name := t.Name(); name {
+		case "layout.html":
+			layoutTemplate = &t
 		case "post.html":
 			postTemplate = &t
 		case "index.html":
 			indexTemplate = &t
 		}
+	}
+
+	if layoutTemplate == nil {
+		panic("Layout template cannot be found!")
 	}
 
 	if postTemplate == nil {
@@ -118,7 +130,25 @@ func writeSite(posts []parser.Post, templates []template.Template) []string {
 			template = indexTemplate
 		}
 
-		if err = template.Execute(file, p); err != nil {
+		builder := new(strings.Builder)
+
+		if err = template.Execute(builder, p); err != nil {
+			panic(err)
+		}
+
+		inner := builder.String()
+		builder = new(strings.Builder)
+
+		type layout struct {
+			Title       string
+			HtmlContent htmlTemplate.HTML
+		}
+
+		if err = layoutTemplate.Execute(builder, layout{Title: p.Title, HtmlContent: htmlTemplate.HTML(inner)}); err != nil {
+			panic(err)
+		}
+
+		if _, err := file.WriteString(builder.String()); err != nil {
 			panic(err)
 		}
 
@@ -126,6 +156,15 @@ func writeSite(posts []parser.Post, templates []template.Template) []string {
 	}
 
 	return writtenPosts
+}
+
+func copyStaticFiles() {
+	// TODO do not use cp (won't work on windows)
+	cmd := exec.Command("cp", "-r", path.Join(*staticArg, ".")+"/.", *outputArg)
+
+	if err := cmd.Run(); err != nil {
+		panic(err)
+	}
 }
 
 func serveSiteIfEnabled() {
