@@ -18,6 +18,21 @@
         header {
             padding-block-end: 0.25rem;
 
+            nav {
+                display: flex;
+                flex-direction: row;
+
+                /* Mobile View */
+                @media (max-width: 576px) {
+                    flex-direction: column;
+
+                    li {
+                        padding-block: 0.2em;
+                        padding-inline: var(--pico-nav-element-spacing-horizontal);
+                    }
+                }
+            }
+
             .title h1 {
                 color: var(--pico-h1-color);
                 font-size: 1.25em;
@@ -92,5 +107,17 @@
                 display: none;
             }
         }
+    }
+
+    .small-icon {
+        display: inline-block;
+        margin-inline: 4px;
+        padding-bottom: 4px;
+        height: 24px;
+    }
+
+    .primary-icon {
+        /* Based on values from https://isotropic.co/tool/hex-color-to-css-filter/ */
+        filter: invert(50%) sepia(50%) saturate(5000%) hue-rotate(120deg) brightness(80%);
     }
 }
