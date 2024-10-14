@@ -4,4 +4,11 @@ title: "Projects I've built"
 toc: true
 ---
 
-These are all the projects I've built
+<blockquote>
+  “The best way to learn is to do; the worst way to teach is to talk.”
+  <footer>
+    <cite>— Paul Halmos</cite>
+  </footer>
+</blockquote>
+
+These are some of the projects I've built. 

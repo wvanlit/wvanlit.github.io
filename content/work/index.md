@@ -41,8 +41,8 @@ _August 2020 - February 2021_
 _March 2020 - August 2020_
 
 * Researched using light (both lamps & led-strips) to speed up picking orders in the warehouse.
-* Created **C#**/. NET software to control a DMX spotlight, highlighting products.
-* Developed a **C#**/UWP app for Raspberry Pi to talk to Teensy microcontrollers over RabbitMQ.
+* Created **C#** software to control a DMX spotlight, highlighting products.
+* Developed a **C#** UWP app for Raspberry Pi to talk to Teensy microcontrollers over RabbitMQ.
 * Programmed Teensy microcontrollers in **C++** to assign picking shelves using led-strips
 
 **Technical Product Owner & Analyst @ Billink 📊**

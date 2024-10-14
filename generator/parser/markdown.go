@@ -8,6 +8,7 @@ import (
 
 	"github.com/yuin/goldmark"
 	goldmark_parser "github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"go.abhg.dev/goldmark/frontmatter"
 	"go.abhg.dev/goldmark/wikilink"
 )
@@ -57,6 +58,7 @@ func NewMarkdownPostParser(contentPath string) PostParser {
 			&frontmatter.Extender{},
 			&wikilink.Extender{},
 		),
+		goldmark.WithRendererOptions(html.WithUnsafe()),
 	)
 
 	return markdownPostParser{
