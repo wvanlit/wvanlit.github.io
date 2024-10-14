@@ -1,16 +1,16 @@
 <table class="striped toc">
     <thead>
         <tr>
-            <th scope="col" style="width: 10ch;"></th>
+            <th scope="col" style="width: 10ch;" class="hide-on-mobile"></th>
             <th scope="col"></th>
-            <th scope="col" style="width: 25ch;"></th>
+            <th scope="col" style="width: 25ch;" class="small-on-mobile"></th>
         </tr>
     </thead>
     {{range .}}
     <tr>
-        <td>{{.CreatedAt}}</td>
+        <td class="hide-on-mobile">{{.CreatedAt}}</td>
         <th scope="row"><a href="/{{.Path}}">{{.Title}}</a></th>
-        <td>
+        <td >
             {{template "tags.html" .Tags}}
         </td>
     </tr>

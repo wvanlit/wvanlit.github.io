@@ -11,6 +11,12 @@
         max-width: 70ch;
         margin-inline: auto;
 
+        /* Mobile View Readability */
+        @media (max-width: 576px) {
+            padding: 0em 1em;
+            font-size: 14px;
+        }
+
         main {
             padding-block: 0.25rem;
         }
@@ -22,7 +28,7 @@
                 display: flex;
                 flex-direction: row;
 
-                /* Mobile View */
+                /* Mobile View - Change nav direction */
                 @media (max-width: 576px) {
                     flex-direction: column;
 
@@ -105,6 +111,17 @@
         table {
             .hide {
                 display: none;
+            }
+
+            /* Mobile View Hide Date */
+            @media (max-width: 576px) {
+                .hide-on-mobile {
+                    display: none;
+                }
+
+                .small-on-mobile {
+                    max-width: 15ch;
+                }
             }
         }
     }
