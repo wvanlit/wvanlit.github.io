@@ -10,6 +10,7 @@ import (
 	fs "site-generator/filesystem"
 	parser "site-generator/parser"
 	tmpl "site-generator/templates"
+	"strings"
 )
 
 func reportDone(text string) {
@@ -97,7 +98,16 @@ func copyStaticFiles() {
 func serveSiteIfEnabled() {
 	if *serveArg {
 		fmt.Printf("\n💻  serving at http://localhost:%d\n", *serverPortArg)
-		http.Handle("/", http.FileServer(http.Dir(*outputArg)))
+
+		fsHandler := http.FileServer(http.Dir(*outputArg))
+
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			if !strings.Contains(r.URL.Path, ".") && !strings.HasSuffix(r.URL.Path, "/") {
+				r.URL.Path = r.URL.Path + ".html"
+			}
+
+			fsHandler.ServeHTTP(w, r)
+		})
 
 		err := http.ListenAndServe(fmt.Sprintf(":%d", *serverPortArg), nil)
 		if err != nil {

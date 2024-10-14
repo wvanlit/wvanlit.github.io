@@ -9,7 +9,7 @@
     {{range .}}
     <tr>
         <td>{{.CreatedAt}}</td>
-        <th scope="row"><a href="/{{.Path}}.html">{{.Title}}</a></th>
+        <th scope="row"><a href="/{{.Path}}">{{.Title}}</a></th>
         <td>
             {{template "tags.html" .Tags}}
         </td>
