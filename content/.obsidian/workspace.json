@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/feedback_culture.md",
+                "file": "learning/seedwork.md",
                 "mode": "source",
                 "source": true
               }
@@ -83,15 +83,16 @@
   },
   "active": "546bf4bf4a392a54",
   "lastOpenFiles": [
-    "meta/post.md",
-    "blog/feedback_culture.md",
+    "learning/index.md",
     "meta/index.md",
+    "meta/post.md",
+    "learning/seedwork.md",
+    "blog/feedback_culture.md",
     "index.md",
     "work/index.md",
     "projects/index.md",
     "projects/HULAS.md",
     "blog/index.md",
-    "learning/index.md",
     "learning/index 1.md",
     "work/work_experience.md",
     "learning/research",
