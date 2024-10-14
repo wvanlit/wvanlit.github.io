@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "blog/feedback_culture.md",
                 "mode": "source",
                 "source": true
               }
@@ -56,14 +56,6 @@
                 "sortOrder": "alphabetical"
               }
             }
-          },
-          {
-            "id": "3f62d8a4ab1714a2",
-            "type": "leaf",
-            "state": {
-              "type": "bookmarks",
-              "state": {}
-            }
           }
         ]
       }
@@ -74,64 +66,7 @@
   "right": {
     "id": "57069fe8dea96880",
     "type": "split",
-    "children": [
-      {
-        "id": "675db89d1f334d49",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "23bb7290f3d57e00",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "index.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "0f32363f6b469d11",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "index.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "58022958ceb1f9ee",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true
-              }
-            }
-          },
-          {
-            "id": "19a99f70bf447592",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "index.md"
-              }
-            }
-          }
-        ]
-      }
-    ],
+    "children": [],
     "direction": "horizontal",
     "width": 300,
     "collapsed": true
@@ -148,14 +83,15 @@
   },
   "active": "546bf4bf4a392a54",
   "lastOpenFiles": [
+    "meta/post.md",
+    "blog/feedback_culture.md",
+    "meta/index.md",
+    "index.md",
     "work/index.md",
     "projects/index.md",
     "projects/HULAS.md",
-    "meta/post.md",
-    "meta/index.md",
     "blog/index.md",
     "learning/index.md",
-    "index.md",
     "learning/index 1.md",
     "work/work_experience.md",
     "learning/research",

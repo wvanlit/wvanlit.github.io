@@ -13,6 +13,7 @@ var templatesArg = flag.String("templates", "", "Path to template directory")
 var staticArg = flag.String("static", "", "Path to static files directory")
 var outputArg = flag.String("output", "", "Path to output directory")
 
+var draftsArg = flag.Bool("drafts", false, "Write posts for drafts")
 var verboseArg = flag.Bool("verbose", false, "Enable verbose logging")
 var serveArg = flag.Bool("serve", false, "Serve the output after generating")
 var serverPortArg = flag.Int("port", 8080, "Port for serving content")

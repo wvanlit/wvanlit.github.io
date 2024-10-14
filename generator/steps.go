@@ -80,7 +80,7 @@ func writeSite(posts []parser.Post, templates []htmlTemplate.Template) []string 
 		panic(err)
 	}
 
-	writtenPosts := tmpl.GenerateSite(*outputArg, posts, templates)
+	writtenPosts := tmpl.GenerateSite(*outputArg, *draftsArg, posts, templates)
 
 	return writtenPosts
 }

@@ -19,6 +19,7 @@ var allPostsToc = parser.Post{
 
 func GenerateSite(
 	outputPath string,
+	writeDrafts bool,
 	posts []parser.Post,
 	templates []htmlTemplate.Template) []string {
 	namedTemplates := getNamedTemplates(templates)
@@ -30,6 +31,9 @@ func GenerateSite(
 	writtenPosts := make([]string, 0)
 
 	for _, p := range posts {
+		if p.IsDraft && !writeDrafts {
+			continue
+		}
 
 		postPath := path.Join(outputPath, p.Path+".html")
 
@@ -110,7 +114,7 @@ func (nt namedTemplates) generatePost(post parser.Post, posts []parser.Post) str
 		dir := path.Dir(post.Path)
 
 		for _, child := range posts {
-			if strings.HasSuffix(child.Path, "index") {
+			if strings.HasSuffix(child.Path, "index") || child.IsDraft {
 				continue
 			}
 

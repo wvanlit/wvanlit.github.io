@@ -36,6 +36,7 @@ func (mpp markdownPostParser) Parse(file filesystem.File) (Post, error) {
 		Tags            []string `yaml:"tags"`
 		CreatedAt       string   `yaml:"date created"`
 		TableOfContents bool     `yaml:"toc"`
+		IsDraft         bool     `yaml:"draft"`
 	}
 
 	if err := d.Decode(&meta); err != nil {
@@ -49,6 +50,7 @@ func (mpp markdownPostParser) Parse(file filesystem.File) (Post, error) {
 		Tags:                meta.Tags,
 		CreatedAt:           meta.CreatedAt,
 		ShowTableOfContents: meta.TableOfContents,
+		IsDraft:             meta.IsDraft,
 	}, nil
 }
 

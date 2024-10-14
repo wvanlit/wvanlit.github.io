@@ -12,6 +12,7 @@ type Post struct {
 	Tags                []string
 	CreatedAt           string
 	ShowTableOfContents bool
+	IsDraft             bool
 }
 
 type PostParser interface {
