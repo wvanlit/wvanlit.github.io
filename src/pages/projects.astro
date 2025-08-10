@@ -1,0 +1,402 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Container from "../components/Container.astro";
+import Card from "../components/Card.astro";
+
+const projects = [
+  {
+    title: "htmx-lua-sqlite",
+    description:
+      "A CGI web application built with HTMX, Lua, and SQLite demonstrating hypermedia-driven architecture without heavy JavaScript frameworks.",
+    status: "Completed",
+    date: "2024-01-27",
+    tags: ["htmx", "lua", "sqlite", "cgi", "hateoas"],
+    href: "https://github.com/wvanlit/htmx-lua-sqlite",
+    emoji: "🌐",
+  },
+  {
+    title: "ML Fraud Detection System",
+    description:
+      "Machine Learning-powered microservice for detecting fraud and setting appropriate insurance on shipments at Coolblue. Handles thousands of daily transactions.",
+    status: "In Production",
+    date: "2023-06",
+    tags: ["machine-learning", "c#", "microservices", "aws", "fraud-detection"],
+    href: null,
+    emoji: "🤖",
+  },
+  {
+    title: "Event Store for Shipments",
+    description:
+      "AWS-based event sourcing system using Lambda, SQS, SNS, and DynamoDB to centralize shipment events and expose them to multiple domains.",
+    status: "In Production",
+    date: "2023-03",
+    tags: ["aws", "lambda", "sqs", "sns", "dynamodb", "event-sourcing"],
+    href: null,
+    emoji: "📦",
+  },
+  {
+    title: "DMX Spotlight Controller",
+    description:
+      "C# application to control DMX spotlights for warehouse picking optimization. Highlights products to speed up order fulfillment.",
+    status: "Completed",
+    date: "2020-07",
+    tags: ["c#", "dmx", "warehouse-automation", "lighting"],
+    href: null,
+    emoji: "💡",
+  },
+  {
+    title: "ESP8266 OTA Updates",
+    description:
+      "Research project exploring scalable Over-the-Air firmware updates for ESP8266 microcontrollers using Azure CI/CD pipelines.",
+    status: "Research",
+    date: "2021-01",
+    tags: ["esp8266", "ota-updates", "azure", "embedded", "c++", "python"],
+    href: null,
+    emoji: "📡",
+  },
+  {
+    title: "Go Credit Check Microservice",
+    description:
+      "Asynchronous microservice built in Go with a custom rules engine to replace legacy credit check systems at Billink.",
+    status: "Completed",
+    date: "2019-11",
+    tags: ["go", "microservices", "fintech", "rules-engine"],
+    href: null,
+    emoji: "💳",
+  },
+  {
+    title: "RabbitMQ Warehouse System",
+    description:
+      "C# UWP application running on Raspberry Pi to communicate with Teensy microcontrollers via RabbitMQ for warehouse LED management.",
+    status: "Completed",
+    date: "2020-05",
+    tags: ["c#", "uwp", "raspberry-pi", "teensy", "rabbitmq", "led-strips"],
+    href: null,
+    emoji: "🔌",
+  },
+  {
+    title: "Azure CI/CD for Embedded",
+    description:
+      "Graduate thesis project on integrating CI/CD pipelines into embedded devices with automated testing and deployment.",
+    status: "Research",
+    date: "2021-02",
+    tags: ["azure", "cicd", "embedded", "devops", "automation"],
+    href: null,
+    emoji: "🔄",
+  },
+];
+
+const statusColors = {
+  Completed: "green",
+  "In Production": "blue",
+  Research: "purple",
+  Paused: "orange",
+  WIP: "yellow",
+};
+---
+
+<MainLayout
+  title="Projects — Wessel van Lit"
+  description="Projects and experiments by Wessel van Lit, from ML-powered systems to embedded device automation."
+>
+  <Container>
+    <header>
+      <h1>Projects I've built</h1>
+      <blockquote class="quote">
+        "The best way to learn is to do; the worst way to teach is to talk."
+        <cite>— Paul Halmos</cite>
+      </blockquote>
+      <p class="intro">
+        These are some of the projects I've built, ranging from production
+        systems handling thousands of daily operations to experimental research
+        projects exploring new technologies.
+      </p>
+    </header>
+
+    <div class="projects-grid">
+      {
+        projects.map((project) => (
+          <article class="project-card">
+            <div class="project-header">
+              <div class="project-icon" aria-hidden="true">
+                {project.emoji}
+              </div>
+              <div class="project-meta">
+                <h2 class="project-title">
+                  {project.href ? (
+                    <a href={project.href} target="_blank" rel="noopener">
+                      {project.title}
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15,3 21,3 21,9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <span>{project.title}</span>
+                  )}
+                </h2>
+                <div class="status-date">
+                  <span class={`status status-${statusColors[project.status]}`}>
+                    {project.status}
+                  </span>
+                  <time class="date">{project.date}</time>
+                </div>
+              </div>
+            </div>
+
+            <p class="project-description">{project.description}</p>
+
+            <div class="tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</MainLayout>
+
+<style>
+  header {
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .quote {
+    font-size: 1.25rem;
+    font-style: italic;
+    margin: 24px 0;
+    padding: 0;
+    color: var(--color-text-secondary, #666);
+  }
+
+  .quote cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.875rem;
+    font-style: normal;
+    color: var(--color-text-tertiary, #888);
+  }
+
+  .intro {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary, #666);
+    max-width: 60ch;
+    margin-top: 16px;
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .project-card {
+    background: var(--color-bg-secondary, #f8fafc);
+    border: 1px solid var(--color-border, #e1e5e9);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary, #3b82f6);
+  }
+
+  .project-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .project-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .project-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .project-title a {
+    color: var(--color-text-primary, #1a1a1a);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+  }
+
+  .project-title a:hover {
+    color: var(--color-primary, #3b82f6);
+  }
+
+  .project-title svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+  }
+
+  .status-date {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .status-green {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status-blue {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .status-purple {
+    background: #f3e8ff;
+    color: #7c3aed;
+  }
+
+  .status-orange {
+    background: #fed7aa;
+    color: #c2410c;
+  }
+
+  .status-yellow {
+    background: #fef3c7;
+    color: #a16207;
+  }
+
+  .date {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #666);
+  }
+
+  .project-description {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #666);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    background: var(--color-bg-tertiary, #e2e8f0);
+    color: var(--color-text-secondary, #64748b);
+    border-radius: 6px;
+    border: 1px solid var(--color-border-light, #cbd5e1);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .project-card {
+      padding: 16px;
+    }
+
+    .project-header {
+      gap: 12px;
+    }
+
+    .project-icon {
+      font-size: 1.5rem;
+    }
+
+    .status-date {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #1a1a1a;
+      --color-bg-secondary: #2d2d2d;
+      --color-bg-tertiary: #404040;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #a1a1aa;
+      --color-text-tertiary: #71717a;
+      --color-border: #404040;
+      --color-border-light: #525252;
+      --color-primary: #60a5fa;
+    }
+
+    .status-green {
+      background: #166534;
+      color: #dcfce7;
+    }
+
+    .status-blue {
+      background: #1e40af;
+      color: #dbeafe;
+    }
+
+    .status-purple {
+      background: #7c3aed;
+      color: #f3e8ff;
+    }
+
+    .status-orange {
+      background: #c2410c;
+      color: #fed7aa;
+    }
+
+    .status-yellow {
+      background: #a16207;
+      color: #fef3c7;
+    }
+  }
+</style>

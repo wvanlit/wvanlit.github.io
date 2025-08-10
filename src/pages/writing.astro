@@ -1,0 +1,384 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Container from "../components/Container.astro";
+
+// Sample writing pieces based on Wessel's actual work and interests
+const posts = [
+  {
+    title: "Building ML-powered fraud detection at scale",
+    slug: "ml-fraud-detection",
+    description:
+      "How we built a machine learning microservice to detect fraud and set appropriate insurance on 20,000+ daily shipments at Coolblue.",
+    date: "2024-12-15",
+    formattedDate: "Dec 15, 2024",
+    tags: ["machine-learning", "c#", "microservices", "fraud-detection"],
+    readTime: "8 min read",
+    featured: true,
+  },
+  {
+    title: "Event sourcing with AWS for shipment tracking",
+    slug: "event-sourcing-shipments",
+    description:
+      "Designing an event store with Lambda, SQS, SNS, and DynamoDB to centralize shipment events across multiple domains.",
+    date: "2024-10-22",
+    formattedDate: "Oct 22, 2024",
+    tags: ["aws", "event-sourcing", "lambda", "microservices"],
+    readTime: "12 min read",
+    featured: true,
+  },
+  {
+    title: "Legacy to microservices: lessons from Coolblue",
+    slug: "legacy-to-microservices",
+    description:
+      "Practical strategies for migrating from monolithic systems to microservices while maintaining 20,000+ daily operations.",
+    date: "2024-08-18",
+    formattedDate: "Aug 18, 2024",
+    tags: ["microservices", "migration", "architecture"],
+    readTime: "10 min read",
+    featured: true,
+  },
+  {
+    title: "CI/CD for embedded devices",
+    slug: "cicd-embedded",
+    description:
+      "Research findings on integrating continuous deployment pipelines into embedded systems development.",
+    date: "2024-06-30",
+    formattedDate: "Jun 30, 2024",
+    tags: ["embedded", "cicd", "devops", "research"],
+    readTime: "15 min read",
+    featured: false,
+  },
+  {
+    title: "Over-the-Air updates for ESP8266",
+    slug: "ota-esp8266",
+    description:
+      "Exploring scalable OTA firmware updates using Azure CI/CD pipelines for ESP8266 microcontrollers.",
+    date: "2024-04-15",
+    formattedDate: "Apr 15, 2024",
+    tags: ["esp8266", "ota", "azure", "embedded"],
+    readTime: "11 min read",
+    featured: false,
+  },
+  {
+    title: "DMX lighting for warehouse automation",
+    slug: "dmx-warehouse-automation",
+    description:
+      "Building a C# system to control DMX spotlights for optimizing warehouse picking operations.",
+    date: "2024-02-10",
+    formattedDate: "Feb 10, 2024",
+    tags: ["c#", "dmx", "warehouse-automation"],
+    readTime: "7 min read",
+    featured: false,
+  },
+  {
+    title: "Go microservices with custom rules engines",
+    slug: "go-rules-engine",
+    description:
+      "Replacing legacy credit check systems with Go microservices and custom rules engines at Billink.",
+    date: "2023-11-20",
+    formattedDate: "Nov 20, 2023",
+    tags: ["go", "microservices", "fintech", "rules-engine"],
+    readTime: "9 min read",
+    featured: false,
+  },
+  {
+    title: "RabbitMQ for IoT device communication",
+    slug: "rabbitmq-iot",
+    description:
+      "Using RabbitMQ to coordinate between Raspberry Pi and Teensy microcontrollers for LED warehouse management.",
+    date: "2023-09-05",
+    formattedDate: "Sep 5, 2023",
+    tags: ["rabbitmq", "iot", "raspberry-pi", "teensy"],
+    readTime: "6 min read",
+    featured: false,
+  },
+];
+
+const tags = [...new Set(posts.flatMap((post) => post.tags))].sort();
+const featuredPosts = posts.filter((post) => post.featured);
+const recentPosts = posts.filter((post) => !post.featured);
+---
+
+<MainLayout
+  title="Writing — Wessel van Lit"
+  description="Technical writing about software engineering, microservices, embedded systems, and lessons learned building scalable systems."
+>
+  <Container>
+    <header>
+      <h1>Writing</h1>
+      <p class="intro">
+        Technical notes, lessons learned, and thoughts on building reliable
+        software systems. From ML-powered microservices to embedded device
+        automation.
+      </p>
+    </header>
+
+    <section class="featured" aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="section-title">Featured</h2>
+      <div class="featured-grid">
+        {
+          featuredPosts.map((post) => (
+            <article class="featured-post">
+              <div class="post-meta">
+                <time class="date">{post.formattedDate}</time>
+                <span class="read-time">{post.readTime}</span>
+              </div>
+              <h3 class="post-title">
+                <a href={`/writing/${post.slug}`}>{post.title}</a>
+              </h3>
+              <p class="post-description">{post.description}</p>
+              <div class="tags">
+                {post.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="all-posts" aria-labelledby="all-posts-heading">
+      <h2 id="all-posts-heading" class="section-title">All Posts</h2>
+
+      <div class="filters">
+        <label for="search" class="sr-only">Search posts</label>
+        <input
+          type="search"
+          id="search"
+          placeholder="Search posts..."
+          class="search-input"
+          aria-describedby="search-help"
+        />
+        <div id="search-help" class="sr-only">
+          Type to search through post titles and descriptions
+        </div>
+      </div>
+
+      <div class="posts-list">
+        {
+          recentPosts.map((post) => (
+            <article class="post-item">
+              <div class="post-header">
+                <h3 class="post-title">
+                  <a href={`/writing/${post.slug}`}>{post.title}</a>
+                </h3>
+                <div class="post-meta">
+                  <time class="date">{post.formattedDate}</time>
+                  <span class="read-time">{post.readTime}</span>
+                </div>
+              </div>
+              <p class="post-description">{post.description}</p>
+              <div class="tags">
+                {post.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </Container>
+</MainLayout>
+
+<style>
+  header {
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .intro {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary, #666);
+    max-width: 60ch;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--color-text-primary, #1a1a1a);
+  }
+
+  /* Featured Posts */
+  .featured {
+    margin-bottom: 48px;
+  }
+
+  .featured-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
+  .featured-post {
+    background: var(--color-bg-secondary, #f8fafc);
+    border: 1px solid var(--color-border, #e1e5e9);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s ease;
+  }
+
+  .featured-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary, #3b82f6);
+  }
+
+  /* All Posts */
+  .all-posts {
+    margin-top: 48px;
+  }
+
+  .filters {
+    margin-bottom: 32px;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border, #e1e5e9);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--color-bg, white);
+    color: var(--color-text-primary, #1a1a1a);
+    transition: border-color 0.2s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .post-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--color-border, #e1e5e9);
+  }
+
+  .post-item:last-child {
+    border-bottom: none;
+  }
+
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+  }
+
+  .post-title a {
+    color: var(--color-text-primary, #1a1a1a);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .post-title a:hover {
+    color: var(--color-primary, #3b82f6);
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #666);
+    white-space: nowrap;
+  }
+
+  .date {
+    font-weight: 500;
+  }
+
+  .read-time {
+    opacity: 0.8;
+  }
+
+  .post-description {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #666);
+    max-width: 65ch;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    background: var(--color-bg-tertiary, #e2e8f0);
+    color: var(--color-text-secondary, #64748b);
+    border-radius: 6px;
+    border: 1px solid var(--color-border-light, #cbd5e1);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .post-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .post-meta {
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #1a1a1a;
+      --color-bg-secondary: #2d2d2d;
+      --color-bg-tertiary: #404040;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #a1a1aa;
+      --color-border: #404040;
+      --color-border-light: #525252;
+      --color-primary: #60a5fa;
+    }
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import "../styles/theme.css";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -38,73 +40,3 @@ const {
     <slot />
   </body>
 </html>
-
-<style is:global>
-  :root {
-    --bg: hsl(210 33% 99%);
-    --fg: hsl(233 40% 12%);
-    --muted: hsl(210 25% 96%);
-    --muted-fg: hsl(233 20% 40%);
-    --border: hsl(220 16% 90%);
-    --accent: hsl(160 60% 38%);
-    --accent-700: hsl(160 65% 32%);
-    --support: hsl(160 65% 35%);
-    --link: var(--support);
-    --link-hover: hsl(160 70% 30%);
-    --card-hover: hsl(210 25% 98%);
-  }
-
-  html {
-    box-sizing: border-box;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family:
-      ui-sans-serif,
-      system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      Helvetica,
-      Arial;
-    line-height: 1.6;
-  }
-
-  a {
-    color: var(--link);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: all 0.2s ease;
-  }
-
-  a:hover {
-    color: var(--link-hover);
-    text-decoration-thickness: 2px;
-  }
-
-  a:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-</style>

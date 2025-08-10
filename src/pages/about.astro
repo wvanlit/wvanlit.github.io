@@ -1,0 +1,330 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Container from "../components/Container.astro";
+---
+
+<MainLayout
+  title="About — Wessel van Lit"
+  description="About Wessel van Lit, Software Engineer passionate about reliable systems and new technologies."
+>
+  <Container>
+    <div class="about-layout">
+      <div class="content">
+        <h1>About Me</h1>
+
+        <div class="bio">
+          <p>
+            👋 Hi there! I'm Wessel, a Software Engineer who loves all things
+            technology related. Currently working at <a
+              href="https://www.coolblue.nl"
+              target="_blank"
+              rel="noopener">Coolblue</a
+            >
+            where I help build and maintain systems that handle over 20,000 shipments
+            daily.
+          </p>
+
+          <p>
+            My passion lies in creating reliable software systems that can
+            scale. At Coolblue, I work with both legacy systems and cutting-edge
+            microservices, primarily using C# and AWS. I've had the opportunity
+            to design ML-powered fraud detection systems and build event stores
+            that keep our shipment data flowing smoothly across different
+            domains.
+          </p>
+
+          <p>
+            In my free time, I like to <a href="/projects"
+              >experiment with new technologies</a
+            > and
+            <a href="/writing">make things</a>. Whether it's exploring
+            over-the-air updates for embedded devices, building warehouse
+            automation systems with DMX lighting, or creating web applications
+            with unconventional tech stacks like HTMX + Lua + SQLite, I'm always
+            curious about different approaches to solving problems.
+          </p>
+
+          <p>
+            Before joining Coolblue, I worked as a consultant at ICT Group,
+            where I helped companies like PSA International and Nederlandse
+            Spoorwegen modernize their systems. I also spent time in the fintech
+            space at Billink, building credit check systems in Go, and even did
+            some research on warehouse automation at Monta.
+          </p>
+
+          <p>
+            I believe in continuous learning and sharing knowledge. I've been a
+            peer coach at Hogeschool Rotterdam, helping first-year Computer
+            Science students with programming and math, and I enjoy writing
+            about the technical challenges and solutions I encounter in my work.
+          </p>
+        </div>
+
+        <section class="contact">
+          <h2>Get in Touch</h2>
+          <p>
+            Interested in chatting about software engineering, microservices, or
+            that weird bug you can't figure out? Feel free to reach out!
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:hello@litdev.nl" class="contact-link">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Email
+            </a>
+
+            <a
+              href="https://github.com/wvanlit"
+              target="_blank"
+              rel="noopener"
+              class="contact-link"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                ></path>
+              </svg>
+              GitHub
+            </a>
+
+            <a
+              href="https://linkedin.com/in/wessel-van-lit"
+              target="_blank"
+              rel="noopener"
+              class="contact-link"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+        </section>
+
+        <section class="fun-fact">
+          <h2>Why "litdev"?</h2>
+          <p>My last name is van Lit. 🔥</p>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <img src="/me.jpg" alt="Wessel van Lit" class="profile-image" />
+
+        <div class="quick-facts">
+          <h3>Quick Facts</h3>
+          <ul>
+            <li>📍 Based in Rotterdam, Netherlands</li>
+            <li>💼 Software Engineer at Coolblue</li>
+            <li>🎓 Computer Science background</li>
+            <li>💻 C#, Go, TypeScript, Python</li>
+            <li>☁️ AWS, Azure, microservices</li>
+            <li>🤖 ML-powered systems</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Container>
+</MainLayout>
+
+<style>
+  .about-layout {
+    display: grid;
+    gap: 48px;
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+
+  .content h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  .bio p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 65ch;
+  }
+
+  .bio a {
+    color: var(--color-primary, #3b82f6);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.2s ease;
+  }
+
+  .bio a:hover {
+    border-bottom-color: var(--color-primary, #3b82f6);
+  }
+
+  .contact,
+  .fun-fact {
+    margin-top: 48px;
+  }
+
+  .contact h2,
+  .fun-fact h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .contact p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 55ch;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border, #e1e5e9);
+    border-radius: 8px;
+    color: var(--color-text-primary, #1a1a1a);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .contact-link:hover {
+    border-color: var(--color-primary, #3b82f6);
+    background: var(--color-bg-secondary, #f8fafc);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .fun-fact p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary, #666);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 32px;
+  }
+
+  .profile-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .quick-facts h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .quick-facts ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .quick-facts li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-border, #e1e5e9);
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .quick-facts li:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 1000px) {
+    .about-layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .sidebar {
+      order: -1;
+      position: static;
+    }
+
+    .profile-image {
+      max-width: 200px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+
+    .quick-facts {
+      text-align: center;
+    }
+
+    .contact-links {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-links {
+      flex-direction: column;
+    }
+
+    .contact-link {
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #1a1a1a;
+      --color-bg-secondary: #2d2d2d;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #a1a1aa;
+      --color-border: #404040;
+      --color-primary: #60a5fa;
+    }
+  }
+</style>

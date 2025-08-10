@@ -13,13 +13,14 @@ Run/build
 
 Repo layout
 - `src/pages/**/*.astro|md`: routes. Example: `src/pages/about.astro` => `/about`.
+- `src/styles/theme.css`: centralized theme variables and global styles using CSS custom properties.
 - `public/`: static assets served at site root (e.g., `public/favicon.svg` -> `/favicon.svg`).
 - `astro.config.mjs`: Astro config (currently default). Update here when adding integrations.
 - `tsconfig.json`: extends `astro/tsconfigs/strict` for stronger checks.
 
 Conventions
 - Prefer static rendering. Only add client interactivity via Astro Islands when strictly needed by the spec.
-- Keep styles lightweight. If you introduce a styling system (e.g., CSS variables or a utility framework), centralize tokens and follow the color/spacing guidance in `DESIGN.md`.
+- Keep styles lightweight. The primary styling system uses CSS custom properties in `src/styles/theme.css` which contains centralized design tokens and follows the color/spacing guidance in `DESIGN.md`.
 - Routes and slugs must match the IA in `DESIGN.md` (Home, Writing, Books, Projects, Work, About). Use kebab‑case for slugs.
 - Follow accessibility and performance notes in `DESIGN.md`: high contrast, semantic landmarks, reduced‑motion support.
 
