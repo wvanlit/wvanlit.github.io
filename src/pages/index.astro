@@ -1,0 +1,257 @@
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Wessel van Lit — software engineer in Rotterdam. Writing, projects, books, and work history." />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>litdev — Wessel van Lit</title>
+
+		<style>
+			:root {
+				--bg: hsl(40 20% 98%);
+				--fg: hsl(222 47% 11%);
+				--muted: hsl(40 10% 96%);
+				--muted-fg: hsl(222 15% 35%);
+				--border: hsl(25 12% 85%);
+				--accent: hsl(160 55% 40%);
+				--accent-fg: white;
+				--link: hsl(222 70% 45%);
+				--link-hover: hsl(222 80% 40%);
+				--card: white;
+				--card-fg: var(--fg);
+			}
+
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--bg: hsl(222 24% 8%);
+					--fg: hsl(210 20% 96%);
+					--muted: hsl(225 15% 14%);
+					--muted-fg: hsl(210 18% 78%);
+					--border: hsl(220 12% 22%);
+					--accent: hsl(160 50% 45%);
+					--accent-fg: white;
+					--link: hsl(210 80% 70%);
+					--link-hover: hsl(210 85% 75%);
+					--card: hsl(222 22% 10%);
+					--card-fg: var(--fg);
+				}
+			}
+
+			/* Base */
+			html { box-sizing: border-box; }
+			*, *::before, *::after { box-sizing: inherit; }
+			body {
+				margin: 0;
+				font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+				color: var(--fg);
+				background: var(--bg);
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+				text-rendering: optimizeLegibility;
+			}
+
+			a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+			a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
+			img { max-width: 100%; height: auto; }
+
+			/* Layout */
+			.container { max-width: 72rem; margin: 0 auto; padding: 1rem 1rem 3rem; }
+			header.header { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0 1.25rem; }
+			.brand { font-weight: 700; letter-spacing: .2px; }
+			.brand a { color: inherit; text-decoration: none; }
+			nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; margin: 0; }
+			nav a { text-decoration: none; color: inherit; padding: .25rem .5rem; border-radius: .35rem; }
+			nav a:hover, nav a:focus { outline: none; background: var(--muted); }
+
+			main { display: grid; gap: 2rem; }
+			/* Two-column at wide screens: hero + featured side-by-side */
+			@media (min-width: 900px) {
+				.home-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items: start; }
+			}
+
+			/* Hero */
+			.hero { background: var(--card); color: var(--card-fg); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; }
+			.avatar { width: 72px; height: 72px; border-radius: 18px; border: 2px dashed hsl(160 40% 40% / .5); display: grid; place-items: center; background: var(--muted); }
+			.avatar svg { width: 56px; height: 56px; }
+			.hero h1 { font-size: 1.5rem; line-height: 1.2; margin: 0; }
+			.hero p { margin: .25rem 0 0; color: var(--muted-fg); }
+			.now { margin-top: .75rem; font-size: .95rem; color: var(--muted-fg); }
+
+			/* Sections */
+			section { border: 1px solid var(--border); border-radius: 14px; background: var(--card); color: var(--card-fg); padding: 1rem; }
+			section h2 { margin: 0 0 .5rem; font-size: 1.1rem; }
+			.cards { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+			@media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+			@media (min-width: 1100px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+
+			.card { border: 1px solid var(--border); border-radius: 12px; padding: .75rem; background: var(--bg); }
+			.card h3 { margin: 0 0 .25rem; font-size: 1rem; }
+			.meta { font-size: .85rem; color: var(--muted-fg); }
+			.list { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+			.list li { display: flex; justify-content: space-between; gap: .75rem; padding: .5rem .5rem; border-radius: .5rem; }
+			.list li:hover { background: var(--muted); }
+			time { white-space: nowrap; color: var(--muted-fg); font-variant-numeric: tabular-nums; }
+
+			/* Status chip */
+			.chip { display: inline-block; font-size: .75rem; padding: .1rem .45rem; border-radius: 999px; border: 1px solid var(--border); background: var(--muted); color: var(--muted-fg); }
+			.chip.accent { background: hsl(160 55% 40% / .12); border-color: hsl(160 55% 40% / .35); color: var(--fg); }
+
+			/* Footer */
+			footer { margin-top: 2rem; padding: 1.5rem 0 .5rem; color: var(--muted-fg); font-size: .9rem; border-top: 1px solid var(--border); }
+			footer a { color: inherit; text-decoration: none; }
+			footer a:hover { text-decoration: underline; }
+
+			/* Accessibility helpers */
+			.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+			.skip-link:focus { position: static; width: auto; height: auto; padding: .5rem .75rem; background: var(--accent); color: var(--accent-fg); border-radius: .5rem; }
+		</style>
+	</head>
+	<body>
+		<a href="#content" class="skip-link">Skip to content</a>
+		<div class="container">
+			<header class="header" role="banner">
+				<div class="brand"><a href="/" aria-label="Home">litdev</a></div>
+				<nav aria-label="Primary">
+					<ul>
+						<li><a href="/writing">Writing</a></li>
+						<li><a href="/books">Books</a></li>
+						<li><a href="/projects">Projects</a></li>
+						<li><a href="/work">Work</a></li>
+						<li><a href="/about">About</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<main id="content" tabindex="-1">
+				<div class="home-grid">
+					<section class="hero" aria-labelledby="hero-title">
+						<div class="avatar" aria-hidden="true">
+							<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar placeholder">
+								<rect x="5" y="5" width="90" height="90" rx="22" stroke="hsl(160 50% 45%)" stroke-width="2" />
+								<circle cx="50" cy="40" r="18" stroke="hsl(160 50% 45%)" stroke-width="2" />
+								<path d="M20 82c8-15 24-22 30-22s22 7 30 22" stroke="hsl(160 50% 45%)" stroke-width="2" />
+							</svg>
+						</div>
+						<div>
+							<h1 id="hero-title">Wessel van Lit</h1>
+							<p>Hi, I’m Wessel — a software engineer in Rotterdam. I build reliable systems with C#, TypeScript, and React. I like shipping small tools, writing about architecture, and reading good books. See my <a href="/work">work</a>, <a href="/writing">writing</a>, and <a href="/projects">projects</a>.</p>
+							<p class="now"><strong>Now:</strong> Senior software engineer at Coolblue; focused on dependable services and developer experience.</p>
+						</div>
+					</section>
+
+					<section aria-labelledby="featured-title">
+						<h2 id="featured-title">Featured writing</h2>
+						<div class="cards">
+							<article class="card">
+								<h3><a href="/writing/architecture-notes">Architecture Notes for Busy Teams</a></h3>
+								<p class="meta">A practical way to document decisions without ceremony.</p>
+								<p class="meta"><time datetime="2025-05-12">May 12, 2025</time></p>
+							</article>
+							<article class="card">
+								<h3><a href="/writing/reliable-queues">Making Queues Boring (and Reliable)</a></h3>
+								<p class="meta">Patterns for handling retries, poison messages, and backpressure.</p>
+								<p class="meta"><time datetime="2025-03-02">Mar 2, 2025</time></p>
+							</article>
+							<article class="card">
+								<h3><a href="/writing/pr-review-checklist">PR Review Checklist</a></h3>
+								<p class="meta">Short list I use to keep reviews fast and kind.</p>
+								<p class="meta"><time datetime="2024-11-19">Nov 19, 2024</time></p>
+							</article>
+						</div>
+					</section>
+				</div>
+
+				<section aria-labelledby="latest-title">
+					<h2 id="latest-title">Latest posts</h2>
+					<ul class="list">
+						<li>
+							<a href="/writing/testing-dotnet-containers">Testing .NET Services in Containers</a>
+							  <time datetime="2025-07-22">Jul 22, 2025</time>
+						</li>
+						<li>
+							<a href="/writing/typescript-safe-apis">TypeScript patterns for safe APIs</a>
+							  <time datetime="2025-06-30">Jun 30, 2025</time>
+						</li>
+						<li>
+							<a href="/writing/astro-notes">Notes on Astro for small sites</a>
+							  <time datetime="2025-06-10">Jun 10, 2025</time>
+						</li>
+						<li>
+							<a href="/writing/cqrs-tradeoffs">CQRS trade‑offs in real teams</a>
+							  <time datetime="2025-05-18">May 18, 2025</time>
+						</li>
+						<li>
+							<a href="/writing/gradual-typing">Gradual typing with Zod</a>
+							  <time datetime="2025-04-27">Apr 27, 2025</time>
+						</li>
+					</ul>
+				</section>
+
+				<section aria-labelledby="projects-title">
+					<h2 id="projects-title">Projects (WIP)</h2>
+					<div class="cards">
+						<article class="card">
+							<h3><a href="/projects/til">til</a> <span class="chip accent">WIP</span></h3>
+							<p class="meta">Tiny notes site generator for dev logs. TS + Astro.</p>
+						</article>
+						<article class="card">
+							<h3><a href="/projects/queue-tool">queue-tool</a> <span class="chip">Idea</span></h3>
+							<p class="meta">CLI to poke at SQS/Rabbit queues safely.</p>
+						</article>
+						<article class="card">
+							<h3><a href="/projects/bookmarks">bookmarks</a> <span class="chip">Paused</span></h3>
+							<p class="meta">Personal link manager with search and tags.</p>
+						</article>
+					</div>
+				</section>
+
+				<section aria-labelledby="books-title">
+					<h2 id="books-title">Books</h2>
+					<div class="cards">
+						<article class="card">
+							<h3><a href="/books/staff-eng">Staff Engineer</a></h3>
+							  <p class="meta">Notes and highlights. <time datetime="2025-07-02">Jul 2, 2025</time></p>
+						</article>
+						<article class="card">
+							<h3><a href="/books/accelerate">Accelerate</a></h3>
+							  <p class="meta">Re-read with focus on metrics. <time datetime="2025-05-09">May 9, 2025</time></p>
+						</article>
+						<article class="card">
+							<h3><a href="/books/thinking-in-systems">Thinking in Systems</a></h3>
+							  <p class="meta">Notes from practice. <time datetime="2025-03-21">Mar 21, 2025</time></p>
+						</article>
+					</div>
+				</section>
+
+				<section aria-labelledby="timeline-title">
+					<h2 id="timeline-title">Recent work</h2>
+					<ol class="list" style="counter-reset: step;">
+						<li>
+							<span><strong>Senior Software Engineer</strong> — Coolblue</span>
+							  <time datetime="2022-01">2022–Now</time>
+						</li>
+						<li>
+							<span><strong>Software Engineer</strong> — Coolblue</span>
+							  <time datetime="2018-01">2018–2021</time>
+						</li>
+					</ol>
+					<p class="meta" style="margin-top:.5rem;">See the full timeline on the <a href="/work">Work</a> page →</p>
+				</section>
+			</main>
+
+			<footer role="contentinfo">
+				<div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+					<span>© {new Date().getFullYear()} Wessel van Lit</span>
+					<span aria-hidden>•</span>
+					<a href="mailto:hi@litdev.nl">hi@litdev.nl</a>
+					<span aria-hidden>•</span>
+					<a href="https://github.com/wvanlit" rel="me noopener" target="_blank">GitHub</a>
+					<span aria-hidden>•</span>
+					<a href="https://www.linkedin.com/in/wesselvanlit/" rel="me noopener" target="_blank">LinkedIn</a>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>
