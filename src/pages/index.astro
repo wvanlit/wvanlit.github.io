@@ -1,309 +1,404 @@
 ---
-import ThemeToggle from "../components/ThemeToggle.astro";
+// Home = updated variant C
+const year = new Date().getFullYear();
 ---
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Wessel van Lit — software engineer in Rotterdam. Writing, projects, books, and work history." />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-			<title>litdev — Wessel van Lit</title>
-    
-			<!-- Prevent theme flash: set initial data-theme before paint -->
-			<script>
-				(function(){
-					try {
-						const key = 'theme';
-						const stored = localStorage.getItem(key);
-						const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-						const theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
-						document.documentElement.setAttribute('data-theme', theme);
-					} catch {}
-				})();
-			</script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Wessel van Lit — software engineer in Rotterdam. Writing, projects, and books."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>litdev — Wessel van Lit</title>
+    <style>
+      :root {
+        --bg: hsl(210 33% 99%);
+        --fg: hsl(233 40% 12%);
+        --muted: hsl(210 25% 96%);
+        --muted-fg: hsl(233 20% 40%);
+        --border: hsl(220 16% 86%);
+        --accent: hsl(160 60% 38%);
+        --accent-700: hsl(160 65% 32%);
+        --support: hsl(210 80% 45%);
+        --link: var(--support);
+        --link-hover: hsl(210 80% 38%);
+      }
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
+        line-height: 1.6;
+      }
+      a {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      a:hover {
+        color: var(--link-hover);
+        text-decoration-thickness: 2px;
+      }
 
-		<style>
-			:root {
-				--bg: hsl(40 20% 98%);
-				--fg: hsl(222 47% 11%);
-				--muted: hsl(40 10% 96%);
-				--muted-fg: hsl(222 15% 35%);
-				--border: hsl(25 12% 85%);
-				--accent: hsl(160 55% 40%);
-				--accent-fg: white;
-				--link: hsl(222 70% 45%);
-				--link-hover: hsl(222 80% 40%);
-				--card: white;
-				--card-fg: var(--fg);
-			}
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 20px 16px 64px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 0 16px;
+      }
+      .brand {
+        font-weight: 800;
+      }
+      .brand a {
+        color: inherit;
+        text-decoration: none;
+      }
+      nav ul {
+        display: flex;
+        gap: 16px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav a {
+        color: inherit;
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 8px;
+      }
+      nav a:hover {
+        background: var(--muted);
+      }
 
-					/* Theme override via [data-theme] attribute */
-					html[data-theme="light"] {
-						--bg: hsl(40 20% 98%);
-						--fg: hsl(222 47% 11%);
-						--muted: hsl(40 10% 96%);
-						--muted-fg: hsl(222 15% 35%);
-						--border: hsl(25 12% 85%);
-						--accent: hsl(160 55% 40%);
-						--accent-fg: white;
-						--link: hsl(222 70% 45%);
-						--link-hover: hsl(222 80% 40%);
-						--card: white;
-						--card-fg: var(--fg);
-					}
+      .hero {
+        position: relative;
+        background: conic-gradient(
+          from 180deg at 50% 50%,
+          hsl(160 60% 92%),
+          hsl(210 70% 92%),
+          hsl(160 60% 92%)
+        );
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        padding: clamp(18px, 4vw, 28px);
+      }
+      .hero-inner {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+      .hero-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(30px, 5.6vw, 54px);
+        line-height: 1.12;
+      }
+      .hero p {
+        margin: 0;
+        color: var(--fg);
+      }
+      .hero .note {
+        color: var(--muted-fg);
+      }
+      .pills {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: white;
+        border: 1px solid var(--border);
+        color: var(--fg);
+        text-decoration: none;
+      }
+      .pill.primary {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+      .pill.primary:hover {
+        background: var(--accent-700);
+      }
 
-					html[data-theme="dark"] {
-					--bg: hsl(222 24% 8%);
-					--fg: hsl(210 20% 96%);
-					--muted: hsl(225 15% 14%);
-					--muted-fg: hsl(210 18% 78%);
-					--border: hsl(220 12% 22%);
-					--accent: hsl(160 50% 45%);
-					--accent-fg: white;
-					--link: hsl(210 80% 70%);
-					--link-hover: hsl(210 85% 75%);
-					--card: hsl(222 22% 10%);
-					--card-fg: var(--fg);
-					}
+      .columns {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr 0.7fr 0.7fr;
+        margin-top: 20px;
+      }
+      @media (max-width: 1000px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-image {
+          justify-self: center;
+          order: -1;
+        }
+        .columns {
+          grid-template-columns: 1fr;
+        }
+      }
+      section {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px;
+      }
+      section h2 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      time {
+        color: var(--muted-fg);
+        font-variant-numeric: tabular-nums;
+      }
 
-					/* Fallback to media when no explicit data-theme set */
-					@media (prefers-color-scheme: dark) {
-						:root:not([data-theme]) {
-							--bg: hsl(222 24% 8%);
-							--fg: hsl(210 20% 96%);
-							--muted: hsl(225 15% 14%);
-							--muted-fg: hsl(210 18% 78%);
-							--border: hsl(220 12% 22%);
-							--accent: hsl(160 50% 45%);
-							--accent-fg: white;
-							--link: hsl(210 80% 70%);
-							--link-hover: hsl(210 85% 75%);
-							--card: hsl(222 22% 10%);
-							--card-fg: var(--fg);
-						}
-					}
+      .grid {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        background: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+      }
+      .card h3 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+      }
+      .meta {
+        color: var(--muted-fg);
+        font-size: 0.92rem;
+      }
 
-			/* Base */
-			html { box-sizing: border-box; }
-			*, *::before, *::after { box-sizing: inherit; }
-			body {
-				margin: 0;
-				font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-				color: var(--fg);
-				background: var(--bg);
-				line-height: 1.6;
-				-webkit-font-smoothing: antialiased;
-				text-rendering: optimizeLegibility;
-			}
+      /* Featured writing section */
+      .featured {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px;
+				margin-top: 16px;
+      }
+      .featured h2 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+      .featured-cards {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @media (max-width: 720px) {
+        .featured-cards {
+          grid-template-columns: 1fr;
+        }
+      }
 
-			a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
-			a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
-			img { max-width: 100%; height: auto; }
-
-			/* Layout */
-			.container { max-width: 72rem; margin: 0 auto; padding: 1rem 1rem 3rem; }
-			header.header { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0 1.25rem; }
-			.brand { font-weight: 700; letter-spacing: .2px; }
-			.brand a { color: inherit; text-decoration: none; }
-			nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; margin: 0; }
-			nav a { text-decoration: none; color: inherit; padding: .25rem .5rem; border-radius: .35rem; }
-			nav a:hover, nav a:focus { outline: none; background: var(--muted); }
-
-			main { display: grid; gap: 2rem; }
-			/* Two-column utility for sections placed side-by-side */
-			.split { display: grid; gap: 1rem; grid-template-columns: 1fr; }
-			@media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
-
-			/* Hero */
-			.hero { background: var(--card); color: var(--card-fg); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; }
-			.avatar { width: 72px; height: 72px; border-radius: 18px; border: 2px dashed hsl(160 40% 40% / .5); display: grid; place-items: center; background: var(--muted); }
-			.avatar svg { width: 56px; height: 56px; }
-			.hero h1 { font-size: 1.5rem; line-height: 1.2; margin: 0; }
-			.hero p { margin: .25rem 0 0; color: var(--muted-fg); }
-			.now { margin-top: .75rem; font-size: .95rem; color: var(--muted-fg); }
-
-			/* Sections */
-			section { border: 1px solid var(--border); border-radius: 14px; background: var(--card); color: var(--card-fg); padding: 1rem; }
-			section h2 { margin: 0 0 .5rem; font-size: 1.1rem; }
-			.cards { display: grid; grid-template-columns: 1fr; gap: .75rem; }
-			@media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-			@media (min-width: 1100px) { .cards { grid-template-columns: repeat(3, 1fr); } }
-
-			/* Featured Writing lives in a half-width column; keep cards to a single column to avoid tall, narrow cards */
-			.cards.featured { grid-template-columns: 1fr; }
-
-			.card { border: 1px solid var(--border); border-radius: 12px; padding: .75rem; background: var(--bg); }
-			.card h3 { margin: 0 0 .25rem; font-size: 1rem; }
-			.meta { font-size: .85rem; color: var(--muted-fg); }
-			.list { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
-			.list li { display: flex; justify-content: space-between; gap: .75rem; padding: .5rem .5rem; border-radius: .5rem; }
-			.list li:hover { background: var(--muted); }
-			time { white-space: nowrap; color: var(--muted-fg); font-variant-numeric: tabular-nums; }
-
-			/* Status chip */
-			.chip { display: inline-block; font-size: .75rem; padding: .1rem .45rem; border-radius: 999px; border: 1px solid var(--border); background: var(--muted); color: var(--muted-fg); }
-			.chip.accent { background: hsl(160 55% 40% / .12); border-color: hsl(160 55% 40% / .35); color: var(--fg); }
-
-			/* Footer */
-			footer { margin-top: 2rem; padding: 1.5rem 0 .5rem; color: var(--muted-fg); font-size: .9rem; border-top: 1px solid var(--border); }
-			footer a { color: inherit; text-decoration: none; }
-			footer a:hover { text-decoration: underline; }
-
-			/* Accessibility helpers */
-			.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-			.skip-link:focus { position: static; width: auto; height: auto; padding: .5rem .75rem; background: var(--accent); color: var(--accent-fg); border-radius: .5rem; }
-		</style>
-	</head>
-	<body>
-		<a href="#content" class="skip-link">Skip to content</a>
-		<div class="container">
-			<header class="header" role="banner">
-				<div class="brand"><a href="/" aria-label="Home">litdev</a></div>
-						<nav aria-label="Primary">
-					<ul>
-						<li><a href="/writing">Writing</a></li>
-						<li><a href="/books">Books</a></li>
-						<li><a href="/projects">Projects</a></li>
-						<li><a href="/work">Work</a></li>
-						<li><a href="/about">About</a></li>
-					</ul>
-				</nav>
-						<div>
-					<ThemeToggle />
-						</div>
-			</header>
-
-			<main id="content" tabindex="-1">
-						<section class="hero" aria-labelledby="hero-title">
-						<div class="avatar" aria-hidden="true">
-							<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar placeholder">
-								<rect x="5" y="5" width="90" height="90" rx="22" stroke="hsl(160 50% 45%)" stroke-width="2" />
-								<circle cx="50" cy="40" r="18" stroke="hsl(160 50% 45%)" stroke-width="2" />
-								<path d="M20 82c8-15 24-22 30-22s22 7 30 22" stroke="hsl(160 50% 45%)" stroke-width="2" />
-							</svg>
-						</div>
-						<div>
-							<h1 id="hero-title">Wessel van Lit</h1>
-							<p>Hi, I’m Wessel — a software engineer in Rotterdam. I build reliable systems with C#, TypeScript, and React. I like shipping small tools, writing about architecture, and reading good books. See my <a href="/work">work</a>, <a href="/writing">writing</a>, and <a href="/projects">projects</a>.</p>
-							<p class="now"><strong>Now:</strong> Senior software engineer at Coolblue; focused on dependable services and developer experience.</p>
-						</div>
-						</section>
-
-						<div class="split">
-										<section aria-labelledby="featured-title">
-								<h2 id="featured-title">Featured writing</h2>
-											<div class="cards featured">
-									<article class="card">
-										<h3><a href="/writing/architecture-notes">Architecture Notes for Busy Teams</a></h3>
-										<p class="meta">A practical way to document decisions without ceremony.</p>
-										<p class="meta"><time datetime="2025-05-12">May 12, 2025</time></p>
-									</article>
-									<article class="card">
-										<h3><a href="/writing/reliable-queues">Making Queues Boring (and Reliable)</a></h3>
-										<p class="meta">Patterns for handling retries, poison messages, and backpressure.</p>
-										<p class="meta"><time datetime="2025-03-02">Mar 2, 2025</time></p>
-									</article>
-									<article class="card">
-										<h3><a href="/writing/pr-review-checklist">PR Review Checklist</a></h3>
-										<p class="meta">Short list I use to keep reviews fast and kind.</p>
-										<p class="meta"><time datetime="2024-11-19">Nov 19, 2024</time></p>
-									</article>
-								</div>
-							</section>
-
-							<section aria-labelledby="latest-title">
-								<h2 id="latest-title">Latest posts</h2>
-								<ul class="list">
-									<li>
-										<a href="/writing/testing-dotnet-containers">Testing .NET Services in Containers</a>
-										<time datetime="2025-07-22">Jul 22, 2025</time>
-									</li>
-									<li>
-										<a href="/writing/typescript-safe-apis">TypeScript patterns for safe APIs</a>
-										<time datetime="2025-06-30">Jun 30, 2025</time>
-									</li>
-									<li>
-										<a href="/writing/astro-notes">Notes on Astro for small sites</a>
-										<time datetime="2025-06-10">Jun 10, 2025</time>
-									</li>
-									<li>
-										<a href="/writing/cqrs-tradeoffs">CQRS trade‑offs in real teams</a>
-										<time datetime="2025-05-18">May 18, 2025</time>
-									</li>
-									<li>
-										<a href="/writing/gradual-typing">Gradual typing with Zod</a>
-										<time datetime="2025-04-27">Apr 27, 2025</time>
-									</li>
-								</ul>
-							</section>
-						</div>
-
-        
-
-				<section aria-labelledby="projects-title">
-					<h2 id="projects-title">Projects (WIP)</h2>
-					<div class="cards">
-						<article class="card">
-							<h3><a href="/projects/til">til</a> <span class="chip accent">WIP</span></h3>
-							<p class="meta">Tiny notes site generator for dev logs. TS + Astro.</p>
-						</article>
-						<article class="card">
-							<h3><a href="/projects/queue-tool">queue-tool</a> <span class="chip">Idea</span></h3>
-							<p class="meta">CLI to poke at SQS/Rabbit queues safely.</p>
-						</article>
-						<article class="card">
-							<h3><a href="/projects/bookmarks">bookmarks</a> <span class="chip">Paused</span></h3>
-							<p class="meta">Personal link manager with search and tags.</p>
-						</article>
-					</div>
-				</section>
-
-				<section aria-labelledby="books-title">
-					<h2 id="books-title">Books</h2>
-					<div class="cards">
-						<article class="card">
-							<h3><a href="/books/staff-eng">Staff Engineer</a></h3>
-							  <p class="meta">Notes and highlights. <time datetime="2025-07-02">Jul 2, 2025</time></p>
-						</article>
-						<article class="card">
-							<h3><a href="/books/accelerate">Accelerate</a></h3>
-							  <p class="meta">Re-read with focus on metrics. <time datetime="2025-05-09">May 9, 2025</time></p>
-						</article>
-						<article class="card">
-							<h3><a href="/books/thinking-in-systems">Thinking in Systems</a></h3>
-							  <p class="meta">Notes from practice. <time datetime="2025-03-21">Mar 21, 2025</time></p>
-						</article>
-					</div>
-				</section>
-
-				<section aria-labelledby="timeline-title">
-					<h2 id="timeline-title">Recent work</h2>
-					<ol class="list" style="counter-reset: step;">
-						<li>
-							<span><strong>Senior Software Engineer</strong> — Coolblue</span>
-							  <time datetime="2022-01">2022–Now</time>
-						</li>
-						<li>
-							<span><strong>Software Engineer</strong> — Coolblue</span>
-							  <time datetime="2018-01">2018–2021</time>
-						</li>
-					</ol>
-					<p class="meta" style="margin-top:.5rem;">See the full timeline on the <a href="/work">Work</a> page →</p>
-				</section>
-			</main>
-
-			<footer role="contentinfo">
-				<div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
-					<span>© {new Date().getFullYear()} Wessel van Lit</span>
-					<span aria-hidden>•</span>
-					<a href="mailto:hi@litdev.nl">hi@litdev.nl</a>
-					<span aria-hidden>•</span>
-					<a href="https://github.com/wvanlit" rel="me noopener" target="_blank">GitHub</a>
-					<span aria-hidden>•</span>
-					<a href="https://www.linkedin.com/in/wesselvanlit/" rel="me noopener" target="_blank">LinkedIn</a>
+      footer {
+        margin-top: 36px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        color: var(--muted-fg);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <h1>Wessel van Lit</h1>
+            <h2>I design and build reliable software systems.</h2>
+            <p class="note">
+              I like clear docs, simple APIs, and boring reliability.
+            </p>
+            <div class="pills">
+              <a class="pill primary" href="/writing">Start reading</a>
+              <a class="pill" href="/projects">Explore projects</a>
+              <a class="pill" href="/work">See work</a>
+            </div>
+          </div>
+          <img src="/me.jpg" alt="Wessel van Lit" class="hero-image" />
+        </div>
+      </section>
+			<section class="featured" aria-labelledby="featured-c">
+				<h2 id="featured-c">Featured writing</h2>
+				<div class="featured-cards">
+					<article class="card">
+						<h3>
+							<a href="/writing/reliable-queues"
+								>Making Queues Boring (and Reliable)</a
+							>
+						</h3>
+						<p class="meta">
+							Retries, poison messages, backpressure. <time
+								datetime="2025-03-02">Mar 2, 2025</time
+							>
+						</p>
+					</article>
+					<article class="card">
+						<h3>
+							<a href="/writing/pr-review-checklist">PR Review Checklist</a>
+						</h3>
+						<p class="meta">
+							Keep reviews fast and kind. <time datetime="2024-11-19"
+								>Nov 19, 2024</time
+							>
+						</p>
+					</article>
+					<article class="card">
+						<h3>
+							<a href="/writing/architecture-notes"
+								>Architecture Notes for Busy Teams</a
+							>
+						</h3>
+						<p class="meta">
+							Document decisions without ceremony. <time datetime="2025-05-12"
+								>May 12, 2025</time
+							>
+						</p>
+					</article>
 				</div>
-			</footer>
-		</div>
-	</body>
+			</section>
+
+      <div class="columns">
+        <section aria-labelledby="posts-c">
+          <h2 id="posts-c">Recent posts</h2>
+          <ul class="list">
+            <li>
+              <a href="/writing/testing-dotnet-containers"
+                >Testing .NET Services in Containers</a
+              >
+              <time datetime="2025-07-22">Jul 22, 2025</time>
+            </li>
+            <li>
+              <a href="/writing/typescript-safe-apis"
+                >TypeScript patterns for safe APIs</a
+              >
+              <time datetime="2025-06-30">Jun 30, 2025</time>
+            </li>
+            <li>
+              <a href="/writing/astro-notes">Notes on Astro for small sites</a>
+              <time datetime="2025-06-10">Jun 10, 2025</time>
+            </li>
+            <li>
+              <a href="/writing/cqrs-tradeoffs">CQRS trade‑offs in real teams</a
+              >
+              <time datetime="2025-05-18">May 18, 2025</time>
+            </li>
+            <li>
+              <a href="/writing/gradual-typing">Gradual typing with Zod</a>
+              <time datetime="2025-04-27">Apr 27, 2025</time>
+            </li>
+          </ul>
+        </section>
+        <section aria-labelledby="projects-c">
+          <h2 id="projects-c">Projects</h2>
+          <ul class="list">
+            <li>
+              <span>
+                <a href="/projects/til">til</a>
+                <span style="color:var(--muted-fg)">— tiny notes generator</span
+                >
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="/projects/queue-tool">queue‑tool</a>
+                <span style="color:var(--muted-fg)">— queue inspector</span>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="/projects/bookmarks">bookmarks</a>
+                <span style="color:var(--muted-fg)">— link manager</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+        <section aria-labelledby="books-c">
+          <h2 id="books-c">Books</h2>
+          <ul class="list">
+            <li>
+              <a href="/books/staff-eng">Staff Engineer</a>
+              <time datetime="2025-07-02">Jul 2, 2025</time>
+            </li>
+            <li>
+              <a href="/books/accelerate">Accelerate</a>
+              <time datetime="2025-05-09">May 9, 2025</time>
+            </li>
+            <li>
+              <a href="/books/thinking-in-systems">Thinking in Systems</a>
+              <time datetime="2025-03-21">Mar 21, 2025</time>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <footer>
+        <div>
+          © {year} Wessel van Lit · <a href="mailto:wessel@litdev.nl"
+            >wessel@litdev.nl</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
