@@ -1,0 +1,122 @@
+---
+import FormattedDate from "../FormattedDate.astro";
+import type { Job } from "../../types/work";
+
+interface Props {
+  company: string;
+  job: Job;
+}
+
+const { company, job } = Astro.props;
+---
+
+<li class="job">
+  <div class="dot" aria-hidden="true"></div>
+  <div class="card">
+    <div class="header">
+      <h3 class="title">{job.title} <span class="at">@ {company}</span></h3>
+      <p class="period">
+        <FormattedDate date={new Date(job.period.start + "-01")} />
+        {" – "}
+        {
+          job.period.end ? (
+            <FormattedDate date={new Date(job.period.end + "-01")} />
+          ) : (
+            "Present"
+          )
+        }
+      </p>
+    </div>
+
+    {
+      job.projects && job.projects.length > 0 && (
+        <ul class="projects">
+          {job.projects.map((p) => (
+            <li class="project">
+              <strong>{p.title}</strong>
+              {p.bullets && p.bullets.length > 0 && (
+                <ul class="bullets">
+                  {p.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</li>
+
+<style>
+  .job {
+    position: relative;
+    list-style: none;
+    padding-left: 2rem;
+  }
+
+  .dot {
+    position: absolute;
+    left: 0.5rem;
+    top: 1.25rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .card {
+    background: rgb(var(--white));
+    padding: 1rem 1rem 0.75rem 1rem;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .at {
+    color: rgb(var(--gray));
+    font-weight: 500;
+  }
+
+  .period {
+    margin: 0;
+    color: rgb(var(--gray));
+    font-size: 0.9rem;
+  }
+
+  .projects {
+    margin: 0.5rem 0 0.5rem 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .project {
+    margin: 0;
+  }
+
+  .project > strong {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+  }
+
+  .bullets {
+    margin: 0.25rem 0 0.5rem 0;
+    padding-left: 1rem;
+    color: rgb(var(--gray));
+  }
+
+  .bullets li {
+    margin: 0.15rem 0;
+  }
+</style>

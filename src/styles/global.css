@@ -3,13 +3,18 @@
  */
 
 :root {
-	--accent: #0066cc;
-	--accent-hover: #004499;
+	--accent: oklch(50.8% 0.118 165.612);
+	--accent-hover: oklch(43.2% 0.095 166.913);
 	--black: 0, 0, 0;
 	--gray: 102, 102, 102;
 	--gray-light: 238, 238, 238;
 	--gray-dark: 51, 51, 51;
 	--border-color: #e6e6e6;
+}
+
+/* Use border-box so padding doesn't cause horizontal overflow on mobile */
+*, *::before, *::after {
+	box-sizing: border-box;
 }
 
 body {
