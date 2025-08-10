@@ -1,0 +1,66 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>
+      © {year} Wessel van Lit ·
+      <a href="mailto:wessel@litdev.nl">wessel@litdev.nl</a>
+    </p>
+    <div class="social-links">
+      <a href="https://github.com/wvanlit" aria-label="GitHub">GitHub</a>
+      <a href="https://linkedin.com/in/wesselvanlit" aria-label="LinkedIn"
+        >LinkedIn</a
+      >
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted-fg);
+    font-size: 0.95rem;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-content p {
+    margin: 0;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .social-links a {
+    color: var(--muted-fg);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .social-links a:hover {
+    color: var(--link);
+  }
+
+  @media (max-width: 640px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .social-links {
+      gap: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+export interface Props {
+  title: string;
+  href?: string;
+  meta?: string;
+  class?: string;
+}
+
+const { title, href, meta, class: className = "" } = Astro.props;
+---
+
+<article class={`card ${className}`}>
+  <h3>
+    {href ? <a href={href}>{title}</a> : title}
+  </h3>
+  {meta && <p class="meta">{meta}</p>}
+  <slot />
+</article>
+
+<style>
+  .card {
+    --padding: 8px;
+
+    background: transparent;
+    border-radius: 8px;
+    padding: var(--padding) 0;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .card:hover {
+    background: var(--muted);
+    padding: var(--padding) var(--padding) 0 var(--padding);
+    margin: 0 0 0 calc(-1 * var(--padding));
+    border-radius: var(--padding);
+  }
+
+  .card h3 {
+    margin: 0 0 var(--padding) px;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card h3 a:hover {
+    color: var(--link);
+    text-decoration: underline;
+  }
+
+  .meta {
+    color: var(--muted-fg);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+</style>

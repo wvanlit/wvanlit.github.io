@@ -1,0 +1,25 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`container ${className}`}>
+  <slot />
+</div>
+
+<style>
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  @media (max-width: 1000px) {
+    .container {
+      padding: 24px 16px 64px;
+    }
+  }
+</style>

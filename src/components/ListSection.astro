@@ -1,0 +1,106 @@
+---
+export interface ListItem {
+  title: string;
+  href: string;
+  date?: string;
+  formattedDate?: string;
+  description?: string;
+}
+
+export interface Props {
+  title: string;
+  items: ListItem[];
+  class?: string;
+}
+
+const { title, items, class: className = "" } = Astro.props;
+---
+
+<section
+  class={`list-section ${className}`}
+  aria-labelledby={`${title.toLowerCase().replace(/\s+/g, "-")}-heading`}
+>
+  <h2 id={`${title.toLowerCase().replace(/\s+/g, "-")}-heading`}>{title}</h2>
+  <ul class="list">
+    {
+      items.map((item) => (
+        <li class="list-item">
+          <div class="list-content">
+            <a href={item.href}>{item.title}</a>
+            {item.description && (
+              <span class="description">— {item.description}</span>
+            )}
+          </div>
+          {item.date && item.formattedDate && (
+            <time datetime={item.date}>{item.formattedDate}</time>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .list-section h2 {
+    margin: 0 0 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 2px 0;
+    transition: all 0.2s ease;
+  }
+
+  .list-item:hover {
+    background: var(--muted);
+    border-radius: 6px;
+    padding: 8px 8px;
+    margin: -6px -8px;
+  }
+
+  .list-content {
+    min-width: 0; /* Prevent overflow */
+  }
+
+  .list-content a {
+    font-weight: 500;
+  }
+
+  .description {
+    color: var(--muted-fg);
+    font-style: italic;
+  }
+
+  time {
+    color: var(--muted-fg);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .list-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    time {
+      font-size: 0.85rem;
+    }
+  }
+</style>

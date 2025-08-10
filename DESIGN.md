@@ -134,38 +134,6 @@ A small, fast personal site for a senior engineer. The site will feel light and 
 * Occasional margin doodles on dividers.
 * Keep stroke widths light; respect contrast in both themes.
 
-## Color System
-
-Use tokens in HSL to support light/dark. Keep one **accent** and one **support**. Example values can be tuned later.
-
-* `--bg` / `--fg`
-* `--muted` / `--muted-fg`
-* `--card` / `--card-fg`
-* `--border`
-* `--accent` / `--accent-fg`
-* `--support` / `--support-fg`
-* `--link` / `--link-hover`
-
-**Light (example)**
-
-* bg: hsl(40 20% 98%)
-* fg: hsl(222 47% 11%)
-* muted: hsl(40 10% 96%)
-* border: hsl(25 12% 85%)
-* accent: hsl(160 55% 40%)
-* support: hsl(12 85% 55%)
-* link: hsl(222 70% 45%) / hover: +10% sat
-
-**Dark (example)**
-
-* bg: hsl(222 24% 8%)
-* fg: hsl(210 20% 96%)
-* muted: hsl(225 15% 14%)
-* border: hsl(220 12% 22%)
-* accent: hsl(160 50% 45%)
-* support: hsl(12 80% 60%)
-* link: hsl(210 80% 70%) / hover: +10% sat
-
 ## Icons & Illustration
 
 * Simple strokes. No heavy fills. Prefer SVG.

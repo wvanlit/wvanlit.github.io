@@ -1,0 +1,77 @@
+---
+import Card from "./Card.astro";
+
+// Featured articles data - in a real app, this would come from Content Collections
+const featuredArticles = [
+  {
+    title: "Making Queues Boring (and Reliable)",
+    href: "/writing/reliable-queues",
+    description: "Retries, poison messages, backpressure.",
+    date: "2025-03-02",
+    formattedDate: "Mar 2, 2025",
+  },
+  {
+    title: "PR Review Checklist",
+    href: "/writing/pr-review-checklist",
+    description: "Keep reviews fast and kind.",
+    date: "2024-11-19",
+    formattedDate: "Nov 19, 2024",
+  },
+  {
+    title: "Architecture Notes for Busy Teams",
+    href: "/writing/architecture-notes",
+    description: "Document decisions without ceremony.",
+    date: "2025-05-12",
+    formattedDate: "May 12, 2025",
+  },
+];
+---
+
+<section class="featured" aria-labelledby="featured-heading">
+  <h2 id="featured-heading">Featured writing</h2>
+  <div class="featured-cards">
+    {
+      featuredArticles.map((article) => (
+        <Card
+          title={article.title}
+          href={article.href}
+          meta={article.description}
+        >
+          <time datetime={article.date}>{article.formattedDate}</time>
+        </Card>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .featured {
+    padding: 0;
+    margin-bottom: 24px;
+  }
+
+  .featured h2 {
+    margin: 0 0 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .featured-cards {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 720px) {
+    .featured-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  time {
+    color: var(--muted-fg);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9rem;
+  }
+</style>

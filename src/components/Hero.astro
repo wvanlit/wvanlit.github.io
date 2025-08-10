@@ -1,0 +1,154 @@
+---
+export interface Props {
+  name?: string;
+  subtitle?: string;
+  description?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  name = "Wessel van Lit",
+  subtitle = "I design and build reliable software systems.",
+  description = "I like clear docs, simple APIs, and boring reliability.",
+  imageSrc = "/me.jpg",
+  imageAlt = "Wessel van Lit, software engineer",
+} = Astro.props;
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1 id="hero-heading">{name}</h1>
+      <p class="hero-subtitle">{subtitle}</p>
+      <p class="hero-description">{description}</p>
+      <div class="cta-buttons" role="group" aria-label="Quick navigation">
+        <a class="cta-button primary" href="/writing">Start reading</a>
+        <a class="cta-button" href="/projects">Explore projects</a>
+        <a class="cta-button" href="/work">See work</a>
+      </div>
+    </div>
+    <img src={imageSrc} alt={imageAlt} class="hero-image" />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: clamp(24px, 5vw, 40px);
+    margin-bottom: 32px;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .hero-content {
+    min-width: 0; /* Prevent flex overflow */
+  }
+
+  .hero h1 {
+    margin: 0 0 12px 0;
+    font-size: clamp(32px, 6vw, 58px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-subtitle {
+    margin: 0 0 8px 0;
+    font-size: clamp(19px, 3.2vw, 26px);
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.3;
+  }
+
+  .hero-description {
+    margin: 0;
+    color: var(--muted-fg);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .hero-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: white;
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .cta-button:hover {
+    background: var(--card-hover);
+    transform: translateY(-1px);
+  }
+
+  .cta-button:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .cta-button.primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .cta-button.primary:hover {
+    background: var(--accent-700);
+    color: white;
+  }
+
+  @media (max-width: 1000px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 28px;
+    }
+
+    .hero-image {
+      justify-self: center;
+      order: -1;
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-button {
+      width: 100%;
+      max-width: 200px;
+      text-align: center;
+    }
+  }
+</style>
