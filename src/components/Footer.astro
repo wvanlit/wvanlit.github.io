@@ -1,0 +1,25 @@
+---
+const today = new Date();
+---
+
+<footer>
+  <div class="footer-content">
+    &copy; {today.getFullYear()} Wessel van Lit
+  </div>
+</footer>
+
+<style>
+  footer {
+    margin-top: 4em;
+    padding: 2em 0;
+  }
+
+  .footer-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+    text-align: center;
+  }
+</style>
