@@ -1,4 +1,4 @@
-name: Generate site & deploy to GitHub Pages
+name: Build Astro site & deploy to GitHub Pages
 
 on:
   push:
@@ -19,31 +19,23 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          go-version: 1.22
+          node-version: 20
+          cache: pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Install dependencies
-        run: go get
-        working-directory: ./generator
-      - name: Build binary
-        shell: bash
-        run: go build -C ./generator -o ../bin/site-generator
-      - name: Generate site
-        shell: bash
-        run: |
-          sudo ./bin/site-generator \
-            --content content/ \
-            --templates templates/ \
-            --static static/ \
-            --output public/ \
-            --verbose
-      - name: Make public directory readable
-        run: sudo chmod 777 ./public
+        run: pnpm install --frozen-lockfile
+      - name: Build site
+        run: pnpm run build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./dist
 
   deploy:
     needs: build
@@ -54,4 +46,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
