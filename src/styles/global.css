@@ -90,7 +90,7 @@
             "Helvetica Neue",
             Arial,
             sans-serif;
-        line-height: 1.6;
+        line-height: 1.4;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -99,8 +99,9 @@
     main {
         container-name: content;
         container-type: inline-size;
+        text-wrap: pretty;
         margin-inline: auto;
-        max-inline-size: 42.5rem;
+        max-inline-size: 70ch;
         padding-block: clamp(3rem, 6vw, 4rem) clamp(5rem, 10vw, 7.5rem);
         padding-inline: clamp(1.25rem, 4vw, 1.5rem);
     }
@@ -110,7 +111,6 @@
         font-weight: 600;
         line-height: 1.25;
         margin: 0;
-        text-wrap: balance;
     }
 
     h1 {
@@ -252,6 +252,17 @@
         font-weight: 700;
         text-decoration-thickness: 1px;
     }
+
+    @media (width <= 40rem) {
+        .nav {
+            align-items: center;
+            row-gap: 0.5rem;
+        }
+
+        .name {
+            flex-basis: 100%;
+        }
+    }
 }
 
 @layer components {
@@ -323,7 +334,8 @@
     }
 
     .post-header {
-        margin-block-end: 3rem;
+        margin-block-start: 1rem;
+        margin-block-end: 1rem;
 
         & .post-title {
             margin-block-end: 0.5rem;
@@ -404,6 +416,17 @@
 
         .post-date {
             align-self: flex-start;
+        }
+    }
+
+    @media (width <= 40rem) {
+        .job ul {
+            list-style: none;
+            padding-inline-start: 0;
+        }
+
+        .job li {
+            margin-block-end: 1rem;
         }
     }
 }

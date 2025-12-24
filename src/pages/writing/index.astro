@@ -1,28 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-
-const posts = await getCollection("blog");
-const toTime = (dateString: string) => {
-    const time = Date.parse(dateString);
-    return Number.isNaN(time) ? 0 : time;
-};
-const sortedPosts = posts.sort(
-    (a, b) => toTime(b.data.date) - toTime(a.data.date),
-);
+import PostList from "../../components/PostList.astro";
 ---
 
 <BaseLayout>
-    <ul class="post-list post-list--writing">
-        {
-            sortedPosts.map((post) => (
-                <li class="post-item">
-                    <a href={`/writing/${post.slug}/`} class="post-link">
-                        <span class="post-title">{post.data.title}</span>
-                        <span class="post-date">{post.data.date}</span>
-                    </a>
-                </li>
-            ))
-        }
-    </ul>
+    <PostList className="post-list--writing" />
 </BaseLayout>

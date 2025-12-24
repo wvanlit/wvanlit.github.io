@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+    className?: string;
+    limit?: number;
+}
+
+const { className, limit } = Astro.props;
+const posts = await getCollection("blog");
+const listClass = ["post-list", className].filter(Boolean).join(" ");
+const toTime = (dateString: string) => {
+    const time = Date.parse(dateString);
+    return Number.isNaN(time) ? 0 : time;
+};
+const sortedPosts = [...posts].sort(
+    (a, b) => toTime(b.data.date) - toTime(a.data.date),
+);
+const visiblePosts =
+    typeof limit === "number" ? sortedPosts.slice(0, limit) : sortedPosts;
+---
+
+<ul class={listClass}>
+    {
+        visiblePosts.map((post) => (
+            <li class="post-item">
+                <a href={`/writing/${post.slug}/`} class="post-link">
+                    <span class="post-title">{post.data.title}</span>
+                    <span class="post-date">{post.data.date}</span>
+                </a>
+            </li>
+        ))
+    }
+</ul>
