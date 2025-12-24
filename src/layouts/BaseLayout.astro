@@ -1,0 +1,98 @@
+---
+import "../styles/global.css";
+
+const { title = "Wessel van Lit", description = "Wessel van Lit" } =
+    Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <script>
+            (function () {
+                const storageKey = "litdev-theme";
+                const root = document.documentElement;
+                const stored = localStorage.getItem(storageKey);
+                if (stored === "light" || stored === "dark") {
+                    root.dataset.theme = stored;
+                }
+            })();
+        </script>
+    </head>
+    <body>
+        <main>
+            <nav class="nav">
+                <a class="name" href="/"><h1>Wessel van Lit</h1></a>
+
+                <a href="/work">work</a>
+                <a href="/writing">writing</a>
+                <a
+                    href="https://github.com/wvanlit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    github
+                </a>
+                <button
+                    class="theme-toggle"
+                    type="button"
+                    data-theme-toggle
+                    aria-label="Toggle color theme"
+                    aria-pressed="false"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 4.5v2.5M12 17v2.5M4.5 12H7M17 12h2.5M6.3 6.3l1.8 1.8M15.9 15.9l1.8 1.8M6.3 17.7l1.8-1.8M15.9 8.1l1.8-1.8M12 8.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7"
+                        ></path>
+                    </svg>
+                </button>
+            </nav>
+            <slot />
+        </main>
+        <script>
+            (function () {
+                const storageKey = "litdev-theme";
+                const root = document.documentElement;
+                const button = document.querySelector("[data-theme-toggle]");
+
+                if (!button) return;
+
+                const getPreferredTheme = () => {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored === "light" || stored === "dark") {
+                        return stored;
+                    }
+                    return window.matchMedia("(prefers-color-scheme: dark)")
+                        .matches
+                        ? "dark"
+                        : "light";
+                };
+
+                const applyTheme = (theme) => {
+                    root.dataset.theme = theme;
+                    button.setAttribute(
+                        "aria-pressed",
+                        theme === "dark" ? "true" : "false",
+                    );
+                };
+
+                applyTheme(getPreferredTheme());
+
+                button.addEventListener("click", () => {
+                    const nextTheme =
+                        root.dataset.theme === "dark" ? "light" : "dark";
+
+                    applyTheme(nextTheme);
+                    localStorage.setItem(storageKey, nextTheme);
+                });
+            })();
+        </script>
+    </body>
+</html>

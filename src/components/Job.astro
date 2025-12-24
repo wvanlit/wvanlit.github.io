@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  period: string;
+  description?: string;
+  bullets?: string[];
+}
+
+const { title, period, description, bullets = [] } = Astro.props;
+---
+
+<div class="job">
+  <h2 class="job-title">{title}</h2>
+  <p class="job-period">{period}</p>
+  {description ? <p class="job-description">{description}</p> : null}
+  {bullets.length ? (
+    <ul>
+      {bullets.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  ) : null}
+  <slot />
+</div>
