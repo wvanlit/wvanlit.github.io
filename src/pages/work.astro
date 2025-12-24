@@ -1,0 +1,177 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+    <style>
+        h1 {
+            margin-bottom: 48px;
+        }
+
+        .job {
+            margin-bottom: 48px;
+        }
+
+        .job-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gray-900);
+        }
+
+        .job-period {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 16px;
+        }
+
+        .job-description {
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+
+        .job ul {
+            margin-bottom: 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .job-title {
+                color: var(--gray-100);
+            }
+
+            .job-description {
+                color: var(--gray-400);
+            }
+        }
+    </style>
+
+    <h1>Work</h1>
+
+    <div class="job">
+        <h2 class="job-title">Software Engineer @ Coolblue</h2>
+        <p class="job-period">August 2022 - Present</p>
+        <p class="job-description">
+            Part of the team handling the digital infrastructure around
+            shipments from/to Coolblue, shipping over 20,000 shipments daily.
+            Maintaining legacy systems and creating new microservices in C#.
+        </p>
+        <ul>
+            <li>
+                Dreamed up and built a microservice to find fraud and set the
+                appropriate insurance on a shipment using Machine Learning.
+            </li>
+            <li>
+                Set up an event store for all shipment related events with AWS
+                (Lambda, SQS, SNS, DynamoDB) to keep status information in a
+                central place to expose to other domains.
+            </li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <h2 class="job-title">Software Consultant @ ICT Group</h2>
+        <p class="job-period">May 2021 - August 2022</p>
+
+        <h3>Project 2 - Nederlandse Spoorwegen (Dutch Railways)</h3>
+        <ul>
+            <li>
+                Led the charge in moving a Manufacturing Execution System (MES)
+                system's front-end from Internet Explorer to Chrome & ES6
+                Javascript.
+            </li>
+            <li>
+                Built manageable workflow tools for factory employees using
+                TypeScript and React, making their work simpler.
+            </li>
+        </ul>
+
+        <h3>Project 1 - PSA International</h3>
+        <ul>
+            <li>
+                Worked on beefing up developer tools (Java + Spring Boot +
+                Angular) for checking systems after updates.
+            </li>
+            <li>
+                Created a CI/CD pipeline in Azure using Packer, Terraform, and
+                Python to make testing older system versions easy.
+            </li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <h2 class="job-title">Graduate Intern @ ICT Group</h2>
+        <p class="job-period">August 2020 - February 2021</p>
+        <ul>
+            <li>
+                Wrote a thesis on integrating CI/CD pipelines into embedded
+                devices and created a functioning prototype.
+            </li>
+            <li>
+                Explored scalable Over-the-Air updates for ESP8266
+                microcontrollers, using Azure CI/CD, with a mix of C++ and
+                Python.
+            </li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <h2 class="job-title">Research & Development Engineer @ Monta</h2>
+        <p class="job-period">March 2020 - August 2020</p>
+        <ul>
+            <li>
+                Researched using light (both lamps & led-strips) to speed up
+                picking orders in the warehouse.
+            </li>
+            <li>
+                Created C# software to control a DMX spotlight, highlighting
+                products.
+            </li>
+            <li>
+                Developed a C# UWP app for Raspberry Pi to talk to Teensy
+                microcontrollers over RabbitMQ.
+            </li>
+            <li>
+                Programmed Teensy microcontrollers in C++ to assign picking
+                shelves using led-strips.
+            </li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <h2 class="job-title">Technical Product Owner & Analyst @ Billink</h2>
+        <p class="job-period">February 2019 - February 2020</p>
+        <ul>
+            <li>
+                Took charge of the credit check system and managed the work of 2
+                remote devs.
+            </li>
+            <li>
+                Dug into data with Tableau and SQL to find bugs and boost both
+                operational and technical performance.
+            </li>
+            <li>
+                Built an asynchronous microservice in Go with a custom rules
+                engine to replace the old credit check.
+            </li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <h2 class="job-title">Peer Coach @ Hogeschool Rotterdam</h2>
+        <p class="job-period">August 2018 - August 2019</p>
+        <ul>
+            <li>
+                Helped out Computer Science teachers with first-year students,
+                focusing on programming and math.
+            </li>
+            <li>
+                Ran workshops and tutored students, making tricky topics more
+                approachable.
+            </li>
+            <li>
+                Played a big part in setting up open days, hackathons, and
+                welcome weeks.
+            </li>
+        </ul>
+    </div>
+</BaseLayout>

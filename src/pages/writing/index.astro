@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+const toTime = (dateString: string) => {
+    const time = Date.parse(dateString);
+    return Number.isNaN(time) ? 0 : time;
+};
+const sortedPosts = posts.sort(
+    (a, b) => toTime(b.data.date) - toTime(a.data.date),
+);
+---
+
+<BaseLayout>
+    <style>
+        .post-list {
+            padding: 0;
+            margin: 0;
+            padding-top: 32px;
+            list-style: none;
+        }
+
+        .post-item {
+            margin-bottom: 24px;
+        }
+
+        .post-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--gray-900);
+            transition: color 0.2s ease;
+        }
+
+        .post-link:hover {
+            color: var(--gray-600);
+        }
+
+        .post-link:hover .post-title {
+            text-decoration: underline;
+            text-decoration-color: var(--gray-300);
+            text-underline-offset: 2px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .post-link {
+                color: var(--gray-100);
+            }
+
+            .post-link:hover {
+                color: var(--gray-400);
+            }
+
+            .post-link:hover .post-title {
+                text-decoration-color: var(--gray-700);
+            }
+        }
+
+        .post-title {
+            font-size: 16px;
+            font-weight: 400;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: var(--gray-500);
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .post-date {
+                color: var(--gray-500);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .post-link {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .post-date {
+                align-self: flex-start;
+            }
+        }
+    </style>
+
+    <ul class="post-list">
+        {
+            sortedPosts.map((post) => (
+                <li class="post-item">
+                    <a href={`/writing/${post.slug}/`} class="post-link">
+                        <span class="post-title">{post.data.title}</span>
+                        <span class="post-date">{post.data.date}</span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</BaseLayout>
