@@ -253,6 +253,15 @@
         text-decoration-thickness: 1px;
     }
 
+    .page-content {
+        display: flow-root;
+        margin-block-start: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .page-content > :first-child {
+        margin-block-start: 0;
+    }
+
     @media (width <= 40rem) {
         .nav {
             align-items: center;
@@ -292,7 +301,7 @@
     }
 
     .post-list--writing {
-        margin-block-start: 2rem;
+        margin-block-start: 0;
     }
 
     .post-item {
@@ -334,7 +343,7 @@
     }
 
     .post-header {
-        margin-block-start: 1rem;
+        margin-block-start: 0;
         margin-block-end: 1rem;
 
         & .post-title {
@@ -354,6 +363,7 @@
         color: var(--text);
         font-size: 1.25rem;
         font-weight: 600;
+        margin-block-start: 0;
         margin-block-end: 0.25rem;
     }
 
