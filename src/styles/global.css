@@ -75,10 +75,6 @@
         --theme-icon: var(--gray-100);
     }
 
-    @view-transition {
-        navigation: auto;
-    }
-
     html {
         accent-color: color-mix(in srgb, var(--text) 40%, transparent);
     }
@@ -107,13 +103,6 @@
         max-inline-size: 42.5rem;
         padding-block: clamp(3rem, 6vw, 4rem) clamp(5rem, 10vw, 7.5rem);
         padding-inline: clamp(1.25rem, 4vw, 1.5rem);
-        view-transition-name: content;
-    }
-
-    ::view-transition-old(content),
-    ::view-transition-new(content) {
-        animation-duration: 240ms;
-        animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     :where(h1, h2, h3, h4, h5, h6) {
@@ -230,11 +219,6 @@
             animation-iteration-count: 1 !important;
             scroll-behavior: auto !important;
             transition-duration: 0.01ms !important;
-        }
-
-        ::view-transition-old(content),
-        ::view-transition-new(content) {
-            animation-duration: 0.01ms;
         }
     }
 }
