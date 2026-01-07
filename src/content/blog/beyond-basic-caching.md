@@ -3,99 +3,107 @@ title: "Beyond Basic Caching"
 date: "7 Jan, 2026"
 ---
 
-**Target audience**:<br/>Developers who shipped a cache, and now have more problems than before they did so.
+**Target audience**:<br/> Developers who shipped a cache and now have more problems than before.
 
-## Caching is more than just a speed up
+## Caching does more than reduce latency
 
-It is common pattern to treat caching solely as a latency optimization.
-While reducing P95 latency is desirable, in my opinion the most valuable aspect of a cache in a distributed system is **fault tolerance**.
+Many developers treat caching as a latency optimization. Lowering P95 helps, but caching also gives us **fault tolerance**: we can keep serving requests when an upstream slows down or fails.
 
-Recently, [in a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf.md), I implemented some new caching strategies. Some data fetching was moved out of the request scope into background jobs, but not all data was constant. Some data was unique per request and thus had to be fetched during the request.
+In [a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf.md), I implemented new caching strategies. Some data fetching moved out of the request scope into background jobs, but not all data stayed constant. Some data was unique per request and had to be fetched during the request.
+
+I'll walk you through my approach, step by step, using a hypothetical scenario.
 
 ## 0. No caching
 
-Let's set a baseline. In this hypothetical service we will be optimizing, let's assume all we do is read from our upstream service (which can be a database, API, [pigeon](https://en.wikipedia.org/wiki/IP_over_Avian_Carriers), etc.) and return the result.
+Let's set a baseline. In this hypothetical service, we read from an upstream (database, API, [pigeon](https://en.wikipedia.org/wiki/IP_over_Avian_Carriers), etc.) and return the result.
 
-Our latency would be equal to the latency of the upstream service, give or take a few milliseconds for request processing. If the upstream is slow, our service is slow. If the upstream is down, our service is down. It's a simple implementation, but not a very robust one.
+Our latency matches upstream latency, plus a few milliseconds for request processing. If the upstream is slow, our service is slow. If the upstream is down, our service is down.
+It's a simple implementation, but not a very robust one.
 
 ![no caching](../../assets/blog/beyond-basic-caching/no-caching.png)
 
 ## 1. Normal caching
 
-At some point, someone will add a cache to this service, likely to speed it up. With a cache between our service and the upstream service, we can minimize the amount of calls we do.
+At some point, someone adds a cache to speed things up. With a cache between our service and the upstream service, we can reduce how often we call the upstream.
 
-Now our request is really fast, but every once in a while (when the key expires) we have a slow request (equal to our previous normal latency). This request can be even slower when the upstream is slow, but worse, when the upstream is down, our cache stays empty and we are also down.
+Most requests become fast, but when a key expires we pay the full upstream latency cost again. If the upstream slows down, those refreshes slow down too. If the upstream goes down, the cache never refills and our service goes down with the upstream again.
 
 ![normal caching](../../assets/blog/beyond-basic-caching/normal-caching.png)
 
-On a good day, this results in a spikey p99, where every once in a while a request will eat the cost of querying fresh data. On a bad day, we might as well turn the service off because nothing will go through anyway.
+On a good day, this gives us a spiky P99 where some requests eat the cost of fetching fresh data. On a bad day, these cache misses turn into outages.
 
-## 2. Stale while Revalidate
+## 2. Stale-While-Revalidate
 
-The issue we now face is that a binary cache state (hit or miss) is insufficient for high-availability systems. It implies that if data is not fresh, the system must query fresh data during the request.
+A binary cache state (hit or miss) is not good enough for a high-availability system.
+It forces us to fetch fresh data during the request whenever the cache expires.
 
-However, for most systems, if the upstream cannot be reached or is timing out, serving stale data is almost always preferable to a 500 error or a timed-out request.
+In most systems, if the upstream times out or fails, serving stale data beats returning a 500 or timing out the request.
 
-Instead we can treat cache entries with three states:
-1.  **Fresh:** Return immediately.
-2.  **Stale:** Return immediately, but query in the background.
-3.  **Missing:** Query during request.
+Instead, we can treat cache entries as three states:
+1.  **Fresh:** Data that is still recent enough to use.
+2.  **Stale:** Old data we keep around while we refresh it in the background.
+3.  **Missing:** No data.
 
-By splitting a hit into a fresh or a stale value, we can use "expired" data in cases where we have lost our fresh values. So instead of making the request query fresh data, we return just now stale data and trigger a refresh in the background.
+This splits a "hit" into fresh and stale. When freshness expires, we can still serve the last known value and start a refresh in the background. When a background refresh fails, we can keep serving the stale value and retry with backoff. This prevents one upstream incident from turning into a cascade of timeouts.
 
-This way our requests stay fast and our system is resilient to downtime of the upstream system, we'll just return stale data in that case!
+This way requests stay fast and the system keeps working during upstream outages.
 
 ![s-w-r](../../assets/blog/beyond-basic-caching/s-w-r.png)
 
-## 3. Thundering Herd Protection
+## 3. Cache Stampede Protection
 
-When a hot key expires under load (e.g., 1,000 req/sec) it results in a race condition where all requests miss the cache and hammer the upstream service simultaneously. We call this a thundering herd.
+When a hot key expires under load (say 1,000 requests per second), many requests miss at once and hammer the upstream. This is a cache stampede (or thundering herd).
 
-This can be bad for the upstream system, because if it's used to a low amount of requests per second (because you've been caching it), now suddenly their load spikes. Depending on the service they might not be able to scale up fast enough or have a lot of cache misses of their own (if that is the case, just send them this blog post :wink:)
+This hurts the upstream because caching made it expect lower load. A stampede can push it over its limits, which creates more timeouts and more retries, which creates more load. This can be a downward spiral of systems going down, coming back up, and going down again.
 
-To mitigate this, we can implement **Request Coalescing**. When a (background) refresh is triggered, we flag the key as "inflight". Subsequent concurrent requests for that key do not trigger new fetches; they await the promise/task of the initial fetch, or if available, they return stale data.
+We can prevent this with **request coalescing**. When we trigger a refresh, mark the key as "in-flight". Subsequent requests for that key do not start new fetches. They either return the stale value (if we allow staleness), or wait for the in-flight refresh to complete.
 
-<!-- TODO: diagram -->
+In a single-instance setup, an in-memory map of in-flight promises can work. In a multi-instance setup, we may need a distributed lock if every instance can stampede at once. However, most of the time it's OK to do `N` requests where `N` is our instance count, just not `N * M` where `M` is our requests per second per instance.
+
+Another low-effort mitigation is to add **TTL jitter**. This means offsetting our keys by a few seconds/minutes when we `SET` them, so our hot keys don't expire at the same time across instances.
 
 ## 4. Cold Starts
 
-When you use memory caching only and have a lot of data cached, new instances coming online can take a massive latency penalty filling their empty caches.
+If we use in-memory caching without a shared cache and we cache a lot of data, new instances pay a large latency cost while they warm their empty caches.
 
-To prevent this issue, especially in serverless environments, it is common practice to use a distributed cache like [Redis](TODO LINK) instead. A distributed cache can be used by all your instances at the same time and does not empty out when an instance goes down.
+To reduce cold-start pain (especially in serverless environments), we can add a distributed cache like [Redis](https://redis.io/). A distributed cache stays warm across instances and survives instance restarts.
 
 ![distributed-cache](../../assets/blog/beyond-basic-caching/distributed-cache.png)
 
-However, a distributed cache isn't free. It's a seperate system that can introduce it's own latency, be slow, go down, etc. To mitigate this, we can use both approaches together, having a memory cache per instance and a distributed cache for the whole service.
+However, a distributed cache is not free. It's a separate system that adds latency and brings its own failure modes. A common compromise is a hybrid cache: an in-memory cache per instance plus a shared distributed cache.
 
-This means we do double writes (both to memory and the distributed cache) but we can buffer reads. We first check the memory cache, then the distributed cache, then the upstream service (potentially in the background due to having stale data in any of our caches).
+We pay double writes (memory + distributed), but we can buffer reads:
+1. Check memory
+2. Then check Redis
+3. Then fetch from the upstream (or refresh in the background if we have stale data)
 
 ![hybrid-cache](../../assets/blog/beyond-basic-caching/hybrid-cache.png)
 
-Now we have redundancy in place!
+This setup reduces our P99 latency and gives us options when Redis or the upstream misbehaves.
 
 ## 5. Backplane
 
-Now that we have multiple caches, each with their own lifecycle, split across instances, we have a new problem. What do we do when a cache key needs to be updated? If you only update one instance you might have inconsistencies between instances.
+With multiple caches across instances, we face a new problem: updates. If we update a single instance, we can serve inconsistent data between instances.
 
-If your keys expire quickly or your data is not very volatile, this might not be an issue, especially if it is not customer facing. For the service I was optimizing it didn't really matter that instance #1 thought a product was 1.01kg but instance #2 got an updated measurement of 1.02kg. This **eventual consistency** was good enough for that system.
+If keys have short TTLs or the data changes little, this might not matter. In the service I optimized, instance A thinking a product weighed 1.01kg while instance B assumed 1.02kg did not break anything. **Eventual consistency** was OK for that system.
 
-However, if you need to minimize this as much as possible (if you can't tolerate it at all, stop caching and just get it from the upstream always), you can use a **Backplane**.
+If we want to reduce those windows of inconsistency, we can add a **backplane**.
 
-A backplane allows us to communicate with all the instances whenever we do a `SET` in our cache and tell them the `KEY/VALUE` that was updated so they can pro-actively update it instead of waiting for the key to expire.
+A backplane lets instances broadcast cache updates or invalidations. When one instance writes to its cache, it publishes an event so other instances can update their in-memory caches instead of waiting for TTL expiry.
 
-This is easily implementable using a pub/sub system like Redis (which you probably are using already for the cache, so no extra infra needed!). Every instance subscribes to the same topic and publishes all their `SET`'s on it. Whenever an update comes in, they update their memory cache with the new value.
+We can implement this with Redis Pub/Sub if we already run Redis for caching. Each instance subscribes to a channel and publishes cache writes (or invalidations) to it. On receiving the event, instances update or evict their memory cache entry.
 
 ![backplane](../../assets/blog/beyond-basic-caching/backplane.png)
 
 ## Conclusion
 
-This step by step process is also how I optimized our cache implementation.
+This step-by-step approach mirrors how I improved the caching implementation in my own systems.
 
-I was heavily influenced by [FusionCache](https://github.com/ZiggyCreatures/FusionCache), a great implementation of this hybrid caching approach for .NET that I lacked in TypeScript.
+I took inspiration from [FusionCache](https://github.com/ZiggyCreatures/FusionCache), which implements many of these ideas for .NET.
 
-So I built my own.
+I wanted the same building blocks in TypeScript, so I built it myself.
 
-The TypeScript POC for this can be found in the [`tiered-cache` repo on my GitHub](https://github.com/wvanlit/tiered-cache). The final implementation is closed source for now.
+The TypeScript POC for this can be found in the [`tiered-cache` repo on my GitHub](https://github.com/wvanlit/tiered-cache). The final implementation is closed-source for now.
 
 ### Further reading
 
