@@ -10,7 +10,7 @@ const { title, period, description, bullets = [] } = Astro.props;
 ---
 
 <div class="job">
-  <h2 class="job-title">{title}</h2>
+  <h3 class="job-title">{title}</h3>
   <p class="job-period">{period}</p>
   {description ? <p class="job-description">{description}</p> : null}
   {bullets.length ? (

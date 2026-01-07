@@ -119,13 +119,17 @@
     }
 
     h2 {
-        font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
-        margin-block: 3rem 1rem;
+        font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+        margin-block: 2rem 1rem;
     }
 
     h3 {
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         margin-block: 2rem 0.75rem;
+    }
+
+    h4 {
+        font-size: 0.9rem;
     }
 
     :where(p, ul, ol) {
@@ -352,7 +356,7 @@
     }
 
     .job {
-        margin-block-end: 3rem;
+        margin-block-end: 1.5rem;
 
         & ul {
             margin-block-end: 0;
@@ -361,7 +365,6 @@
 
     .job-title {
         color: var(--text);
-        font-size: 1.25rem;
         font-weight: 600;
         margin-block-start: 0;
         margin-block-end: 0.25rem;

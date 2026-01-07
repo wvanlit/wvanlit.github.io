@@ -3,9 +3,7 @@ title: "Distributed Software Architecture Fundamentals for Product Owners"
 date: "07 Feb, 2025"
 ---
 
-**Disclaimer**: The following explanations are heavily salted with the opinions of the author.
-
-**Target audience**: Product Owners (or anyone else working closely with development teams) in a company with a large technical landscape where multiple development teams operate independently of each other.
+**Target audience**:<br/>Product Owners (or anyone else working closely with development teams) in a company with a large technical landscape where multiple development teams operate independently of each other.
 
 ## Why Should Product Owners Care About Software Architecture?
 
@@ -173,7 +171,7 @@ In many cases, a Distributed Monolith is actually _worse_ than a single monolith
 
 Hopefully, this overview helps you navigate those technical discussions with more confidence. By recognizing how monoliths, distributed monoliths, and microservices differ, and why those differences matter, you'll be better positioned to lead your team to scalable, maintainable success.
 
-**Further Reading & Listening**
+### Further Reading & Listening
 - [Microservices.io](https://microservices.io/) by Chris Richardson
 - _Designing Data-Intensive Applications_ by Martin Kleppmann
 - _Microservices Patterns_ by Chris Richardson

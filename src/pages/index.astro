@@ -1,15 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostList from "../components/PostList.astro";
+import Job from "../components/Job.astro";
+import { jobs } from "../data/jobs";
+
+const currentJob = jobs[0];
 ---
 
 <BaseLayout>
     <div class="intro">
-        <p>
-            I'm a senior software engineer at Coolblue, where I build and
-            maintain our logistics systems to ensure that your packages are
-            "ordered today, delivered tomorrow".
-        </p>
         <p>
             I design event-driven architectures with reliability in mind,
             grounded in domain-driven design and real-world business needs.
@@ -17,8 +16,21 @@ import PostList from "../components/PostList.astro";
         </p>
     </div>
 
+    <Job
+        title={currentJob.title}
+        period={currentJob.period}
+        description={currentJob.description}
+    />
+    <p><a href="/work">View all work experience →</a></p>
+
     <section>
         <h2 class="section-title">Writing</h2>
         <PostList limit={5} />
     </section>
 </BaseLayout>
+
+<style>
+    .job {
+        margin-block-end: 1rem;
+    }
+</style>
