@@ -15,8 +15,7 @@ export const jobs: JobData[] = [
     period: "October 2024 - Present",
     description: `Senior engineer ensuring the "ordered today, delivered tomorrow" promise is kept. Owning end-to-end customer journeys in TypeScript and C# systems.`,
     bullets: [
-      `Led a 6-month rewrite of the delivery proposition microservice from C# to TypeScript, shifting to pre-fetched caches and event-driven data.
-            Improved latency (P95 250ms to 50ms, P99 500ms to 100ms) while scaling to millions of requests on a handful of ECS tasks and restoring team ownership.`,
+      `Led a 6-month rewrite of the delivery proposition microservice from C# to TypeScript, shifting to pre-fetched caches and event-driven data. Improved latency (P95 250ms to 50ms, P99 500ms to 100ms) while scaling to millions of requests on a handful of ECS tasks and restoring team ownership.`,
       `Designed an event-driven product data aggregator that provides a unified read model across multiple sources, reducing integration effort and data inconsistencies for delivery applications.`,
     ],
   },
