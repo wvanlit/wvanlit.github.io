@@ -9,7 +9,7 @@ date: "7 Jan, 2026"
 
 Many developers treat caching as a latency optimization. Lowering P95 helps, but caching also gives us **fault tolerance**: we can keep serving requests when an upstream slows down or fails.
 
-In [a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf.md), I implemented new caching strategies. Some data fetching moved out of the request scope into background jobs, but not all data stayed constant. Some data was unique per request and had to be fetched during the request.
+In [a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf), I implemented new caching strategies. Some data fetching moved out of the request scope into background jobs, but not all data stayed constant. Some data was unique per request and had to be fetched during the request.
 
 I'll walk you through my approach, step by step, using a hypothetical scenario.
 
