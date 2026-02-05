@@ -1,0 +1,50 @@
+---
+interface Props {
+    showNav?: boolean;
+}
+
+const { showNav = true } = Astro.props;
+---
+
+<header class="header">
+    <a href="/" class="header-name-link">
+        <h1 class="header-name">Wessel van Lit</h1>
+    </a>
+    <p class="header-role">Senior Software Engineer</p>
+    {showNav && (
+        <nav class="nav">
+            <a href="/work">work</a>
+            <a href="/writing">writing</a>
+            <a href="https://github.com/wvanlit" target="_blank" rel="noopener noreferrer">github</a>
+            <button
+                class="theme-toggle"
+                type="button"
+                data-theme-toggle
+                aria-label="Toggle color theme"
+                aria-pressed="false"
+            >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
+                </svg>
+            </button>
+        </nav>
+    )}
+</header>
+
+<style>
+    .header-name-link {
+        display: block;
+    }
+
+    .header-name-link:hover {
+        opacity: 1;
+    }
+
+    .header-name-link:hover .header-name {
+        opacity: 0.6;
+    }
+</style>

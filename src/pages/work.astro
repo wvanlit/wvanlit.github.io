@@ -1,25 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 import Job from "../components/Job.astro";
 import { jobs } from "../data/jobs";
+
+const formatNumber = (n: number) => String(n).padStart(2, '0');
 ---
 
-<BaseLayout>
-    {jobs.map((job) => (
-        <Job
-            title={job.title}
-            period={job.period}
-            description={job.description}
-            bullets={job.bullets}
-        >
-            {job.subProjects && job.subProjects.map((project) => (
-                <>
-                    <h4>{project.title}</h4>
-                    <ul>
-                        {project.bullets.map((bullet) => <li>{bullet}</li>)}
-                    </ul>
-                </>
-            ))}
-        </Job>
-    ))}
+<BaseLayout title="Work - Wessel van Lit">
+    <section class="section">
+        {jobs.map((job, index) => (
+            <Job
+                number={formatNumber(index + 1)}
+                title={job.title}
+                period={job.period}
+                description={job.description}
+                bullets={job.bullets}
+            >
+                {job.subProjects && job.subProjects.map((project) => (
+                    <>
+                        <h4>{project.title}</h4>
+                        <ul>
+                            {project.bullets.map((bullet) => <li>{bullet}</li>)}
+                        </ul>
+                    </>
+                ))}
+            </Job>
+        ))}
+    </section>
 </BaseLayout>

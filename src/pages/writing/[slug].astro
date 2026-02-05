@@ -15,9 +15,12 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BaseLayout title={post.data.title}>
-    <h1>{post.data.title}</h1>
-    <p class="post-date">{post.data.date}</p>
+<BaseLayout title={`${post.data.title} - Wessel van Lit`}>
+    <div class="post-header">
+        <h1 class="post-title">{post.data.title}</h1>
+        <span class="post-date">{post.data.date}</span>
+    </div>
+
     <article>
         <Content />
     </article>

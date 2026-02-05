@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
 import PostList from "../../components/PostList.astro";
 ---
 
-<BaseLayout>
-    <PostList className="post-list--writing" />
+<BaseLayout title="Writing - Wessel van Lit">
+    <section class="section">
+        <PostList />
+    </section>
 </BaseLayout>

@@ -9,13 +9,16 @@ interface Props {
 const { className, limit } = Astro.props;
 const posts = await getCollection("blog");
 const listClass = ["post-list", className].filter(Boolean).join(" ");
+
 const toTime = (dateString: string) => {
     const time = Date.parse(dateString);
     return Number.isNaN(time) ? 0 : time;
 };
+
 const sortedPosts = [...posts].sort(
     (a, b) => toTime(b.data.date) - toTime(a.data.date),
 );
+
 const visiblePosts =
     typeof limit === "number" ? sortedPosts.slice(0, limit) : sortedPosts;
 ---

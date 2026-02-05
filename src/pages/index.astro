@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 import PostList from "../components/PostList.astro";
 import Job from "../components/Job.astro";
 import { jobs } from "../data/jobs";
@@ -8,29 +9,24 @@ const currentJob = jobs[0];
 ---
 
 <BaseLayout>
-    <div class="intro">
-        <p>
-            I design event-driven architectures with reliability in mind,
-            grounded in domain-driven design and real-world business needs.
-            Mostly on the back-end, but on the front-end too.
-        </p>
-    </div>
+    <section class="section">
+        <SectionHeader number="01" label="About" />
+        <div class="intro">
+            <p>
+                I'm a <strong>senior software engineer</strong> at Coolblue, where I build and
+                maintain our logistics systems to ensure that your packages are
+                "ordered today, delivered tomorrow".
+            </p>
+            <p>
+                I design <strong>event-driven architectures</strong> with reliability in mind,
+                grounded in domain-driven design and real-world business needs.
+                Mostly on the back-end, but on the front-end too.
+            </p>
+        </div>
+    </section>
 
-    <Job
-        title={currentJob.title}
-        period={currentJob.period}
-        description={currentJob.description}
-    />
-    <p><a href="/work">View all work experience →</a></p>
-
-    <section>
-        <h2 class="section-title">Writing</h2>
+    <section class="section">
+        <SectionHeader number="02" label="Writing" />
         <PostList limit={5} />
     </section>
 </BaseLayout>
-
-<style>
-    .job {
-        margin-block-end: 1rem;
-    }
-</style>
