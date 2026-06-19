@@ -15,9 +15,9 @@ export const jobs: JobData[] = [
     period: "March 2026 - Present",
     description: `Building Studio, a new full-stack document management and AI-powered analysis product.`,
     bullets: [
-      `Building end-to-end product capabilities across the stack, from document workflows and review tooling to the infrastructure needed to ship a brand-new product.`,
-      `Working on AI harness engineering inside our codebases to keep coding harnesses and development workflows reliable, fast, and usable.`,
-      `Building agent infrastructure in the application layer so AI analysis and human review can work together in practical product flows.`,
+      `Shipping product across the stack, from document workflows and review tooling to the infrastructure a brand-new product needs to launch.`,
+      `Tuning the coding harnesses and development workflows we use internally so they stay fast and reliable to work with.`,
+      `Building agent infrastructure in the application layer so AI analysis and human review work together in real product flows.`,
     ],
   },
   {
