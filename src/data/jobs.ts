@@ -11,8 +11,18 @@ export interface JobData {
 
 export const jobs: JobData[] = [
   {
+    title: "Senior Software Engineer @ RobotX",
+    period: "March 2026 - Present",
+    description: `Building Studio, a new full-stack document management and AI-powered analysis product.`,
+    bullets: [
+      `Building end-to-end product capabilities across the stack, from document workflows and review tooling to the infrastructure needed to ship a brand-new product.`,
+      `Working on AI harness engineering inside our codebases to keep coding harnesses and development workflows reliable, fast, and usable.`,
+      `Building agent infrastructure in the application layer so AI analysis and human review can work together in practical product flows.`,
+    ],
+  },
+  {
     title: "Senior Software Engineer @ Coolblue",
-    period: "October 2024 - Present",
+    period: "October 2024 - March 2026",
     description: `Senior engineer ensuring the "ordered today, delivered tomorrow" promise is kept. Owning end-to-end customer journeys in TypeScript and C# systems.`,
     bullets: [
       `Led a 6-month rewrite of the delivery proposition microservice from C# to TypeScript, shifting to pre-fetched caches and event-driven data. Improved latency (P95 250ms to 50ms, P99 500ms to 100ms) while scaling to millions of requests on a handful of ECS tasks and restoring team ownership.`,
