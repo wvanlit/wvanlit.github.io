@@ -3,17 +3,22 @@ interface Props {
     title: string;
     period: string;
     description?: string;
+    descriptionHtml?: string;
     bullets?: string[];
     number?: string;
 }
 
-const { title, period, description, bullets = [], number } = Astro.props;
+const { title, period, description, descriptionHtml, bullets = [], number } = Astro.props;
 ---
 
 <div class="job">
     <h3 class="job-title">{title}</h3>
     <p class="job-period">{period}</p>
-    {description ? <p class="job-description">{description}</p> : null}
+    {descriptionHtml ? (
+        <p class="job-description" set:html={descriptionHtml} />
+    ) : description ? (
+        <p class="job-description">{description}</p>
+    ) : null}
     {bullets.length ? (
         <ul>
             {bullets.map((item) => (

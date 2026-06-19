@@ -15,6 +15,7 @@ const formatNumber = (n: number) => String(n).padStart(2, '0');
                 title={job.title}
                 period={job.period}
                 description={job.description}
+                descriptionHtml={job.descriptionHtml}
                 bullets={job.bullets}
             >
                 {job.subProjects && job.subProjects.map((project) => (
