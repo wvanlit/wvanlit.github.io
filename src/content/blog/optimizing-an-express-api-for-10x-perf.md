@@ -9,7 +9,7 @@ I recently sped up an Express service from **P95 ~1s to ~50ms** and **P99 ~2s to
 
 > **What's blocking the event loop right now?**
 
-Everything here comes from one real world scenario, but the ideas are general enough to apply to your own. This post is as much a reference for myself as it is a guide for others. I'll be coming back to this checklist the next time I'm debugging slow requests.
+Everything here comes from one real-world service, but the ideas transfer. This post is as much a reference for myself as a guide for anyone else, I'll be coming back to this checklist the next time I'm staring at slow requests.
 
 ## Why Express APIs get slow
 
@@ -31,9 +31,9 @@ Before changing anything, make sure your measurements are honest. Performance wo
 
 Run your load test for minutes, not seconds, long enough for the system to settle. Decide if you're testing with a warm cache or a cold start, then stick with it. Keep the same mix of requests so you don't accidentally "improve" performance by sending easier traffic.
 
-Most importantly: measure more than just response time. Memory usage, event loop delay, CPU usage, etc. all play a part in optimization, sometimes not at the single request level but over the lifetime of your instance.
+Most importantly: measure more than just response time. Memory usage, event loop delay, and CPU usage all matter, sometimes not at the single-request level but over the lifetime of your instance.
 
-On this service, even light load pushed P95 to ~1s and P99 to ~2s, while CPU wasn't maxed out. It showed we were not running out of CPU but instead you're blocked by the event loop. Those requests were waiting behind long running synchronous work.
+On this service, even light load pushed P95 to ~1s and P99 to ~2s while CPU wasn't maxed out. That gap is the tell: we weren't running out of CPU, we were blocked on the event loop. Those requests were just waiting behind long-running synchronous work.
 
 ![Example baseline under load](../../assets/blog/optimizing-express-api/pre-optimization.png)
 
