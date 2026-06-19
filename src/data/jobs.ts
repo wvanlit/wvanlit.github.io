@@ -16,8 +16,8 @@ export const jobs: JobData[] = [
     description: `Building Studio from scratch, a document management product with AI-powered analysis baked in.`,
     bullets: [
       `I work across the whole stack, from document workflows and review tooling down to the infrastructure a brand-new product needs to get off the ground.`,
-      `A big part of my job is keeping our internal coding harnesses and dev workflows fast and pleasant to work in. They're the tools the rest of the team builds on.`,
-      `I build the agent infrastructure in the app layer, the part that lets AI analysis and human review actually work together instead of fighting each other.`,
+      `I keep our internal coding harnesses and dev workflows fast and pleasant to work in. They're the tools the rest of the team builds on.`,
+      `I build the agent infrastructure in the app layer, the part that lets AI analysis and human review work together instead of fighting each other.`,
     ],
   },
   {
@@ -47,7 +47,7 @@ export const jobs: JobData[] = [
         title: "Project 2 - Nederlandse Spoorwegen (Dutch Railways)",
         bullets: [
           `Led the migration of a Manufacturing Execution System (MES) front-end off Internet Explorer and onto Chrome and ES6 JavaScript, which finally unblocked modern development on it.`,
-          `Built workflow tools in TypeScript and React for factory-floor employees, cutting a lot of manual steps out of their day.`,
+          `Built workflow tools in TypeScript and React for factory-floor employees, cutting manual steps out of their day.`,
         ],
       },
       {
@@ -64,7 +64,7 @@ export const jobs: JobData[] = [
     period: "August 2020 - February 2021",
     description: `My graduation internship, focused on getting CI/CD working for embedded and IoT devices.`,
     bullets: [
-      `Wrote my thesis on bringing CI/CD pipelines to embedded devices, and built a working prototype to show it could actually be done.`,
+      `Wrote my thesis on bringing CI/CD pipelines to embedded devices, and built a working prototype to show it could be done.`,
       `Got over-the-air updates running on ESP8266 microcontrollers through Azure CI/CD with C++ and Python, proving the approach held up in practice.`,
     ],
   },
@@ -93,8 +93,8 @@ export const jobs: JobData[] = [
     period: "August 2018 - August 2019",
     description: `Helped CS teachers and first-year students with programming and math.`,
     bullets: [
-      `Ran workshops and tutored students to make the intimidating topics feel a bit more approachable.`,
-      `Helped organize open days, hackathons, and welcome weeks to build some community.`,
+      `Ran workshops and tutored students to make the intimidating topics feel more approachable.`,
+      `Helped organize open days, hackathons, and welcome weeks to build community.`,
     ],
   },
 ];

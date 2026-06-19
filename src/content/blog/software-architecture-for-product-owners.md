@@ -136,7 +136,7 @@ If at any point you want to pull out one of these sub-systems into its own servi
 
 ## The distributed monolith: a system that pretends to be microservices
 
-After outgrowing the monolith, the next logical step is splitting off parts of the application into separate services. But if those new services remain **tightly coupled**, you don't really gain the benefits of microservices.
+After outgrowing the monolith, the next logical step is splitting off parts of the application into separate services. But if those new services remain **tightly coupled**, you don't gain the benefits of microservices.
 
 ### Symptoms of a distributed monolith
 
@@ -144,7 +144,7 @@ After outgrowing the monolith, the next logical step is splitting off parts of t
 - **Cascading Failures**: A seemingly small issue in the "Order Service" might trigger a meltdown in "User Profile," "Notification," and "Invoice" services.
 - **Excessive Cross-Service Calls**: Retrieving basic data (like a user's birthday) requires multiple network hops.
 
-In many cases, a Distributed Monolith is actually _worse_ than a single monolith. You have all the overhead of multiple services, but with none of the independence.
+In many cases, a Distributed Monolith is _worse_ than a single monolith. You have all the overhead of multiple services, but with none of the independence.
 
 ![distributed-monolith-failure-cascade](../../assets/blog/software-architecture-for-product-owners/distributed-monolith-failure-cascade.png)
 
@@ -156,7 +156,7 @@ In many cases, a Distributed Monolith is actually _worse_ than a single monolith
 - **More Services != Better Architecture**: Don't fall into the "just keep splitting it up" trap. Each new service introduces overhead.
 - Aim for a balanced approach, **the right number** of services with well-defined boundaries.
 
-Next time the developers start throwing these terms around in a meeting, you'll know what they're actually arguing about, and you'll be able to ask better questions about it.
+Next time the developers start throwing these terms around in a meeting, you'll know what they're arguing about, and you'll be able to ask better questions about it.
 
 ### Further reading & listening
 - [Microservices.io](https://microservices.io/) by Chris Richardson

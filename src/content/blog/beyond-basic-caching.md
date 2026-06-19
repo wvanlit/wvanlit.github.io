@@ -9,7 +9,7 @@ date: "7 Jan, 2026"
 
 Many developers treat caching as a latency optimization. Lowering P95 helps, but caching also gives us **fault tolerance**: we can keep serving requests when an upstream slows down or fails.
 
-In [a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf), I reworked the caching strategy. A lot of the fetching moved out of the request scope into background jobs, but not everything could: some data was unique per request and had to be fetched right there.
+In [a high-traffic service at Coolblue that I was optimizing](../optimizing-an-express-api-for-10x-perf), I reworked the caching strategy. Most of the fetching moved out of the request scope into background jobs, but not everything could: some data was unique per request and had to be fetched right there.
 
 Here's the approach I landed on, built up one step at a time on a hypothetical service.
 
@@ -18,7 +18,7 @@ Here's the approach I landed on, built up one step at a time on a hypothetical s
 Let's set a baseline. In this hypothetical service, we read from an upstream (database, API, [pigeon](https://en.wikipedia.org/wiki/IP_over_Avian_Carriers), etc.) and return the result.
 
 Our latency matches upstream latency, plus a few milliseconds for request processing. If the upstream is slow, our service is slow. If the upstream is down, our service is down.
-It's a simple implementation, but not a very robust one.
+It's a simple implementation, but not a robust one.
 
 ![no caching](../../assets/blog/beyond-basic-caching/no-caching.png)
 
@@ -64,7 +64,7 @@ Another low-effort mitigation is to add **TTL jitter**. This means offsetting ou
 
 ## 4. Cold Starts
 
-If we use in-memory caching without a shared cache and we cache a lot of data, new instances pay a large latency cost while they warm their empty caches.
+If we use in-memory caching without a shared cache and we cache heavily, new instances pay a large latency cost while they warm their empty caches.
 
 To reduce cold-start pain (especially in serverless environments), we can add a distributed cache like [Redis](https://redis.io/). A distributed cache stays warm across instances and survives instance restarts.
 

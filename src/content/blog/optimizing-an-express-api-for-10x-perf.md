@@ -23,7 +23,7 @@ If you don't know what's blocking your loop, you're just guessing.
 
 The first time I profiled this service, about half of every request was spent on `JSON.parse` and `JSON.stringify` for an in-memory cache. Another big chunk was parsing dates over and over. Some time went to setting up new connections for every outbound request. The actual business logic? Barely a blip.
 
-None of the fixes were very surprising. That's the point, this stuff is obvious if you know about it, but it wasn't to me at first.
+None of the fixes were surprising. That's the point, this stuff is obvious if you know about it, but it wasn't to me at first.
 
 ## 0. Get a baseline you can trust
 
@@ -64,7 +64,7 @@ This was a sneaky bottleneck. JSON is convenient, but it's synchronous CPU work,
 
 If the cache never leaves the process, just store the objects directly instead of stringifying them.
 
-One catch: caching object references makes accidental mutation easier. If you go this route, freeze your cached values or be very careful about who touches them. Deep-cloning is safer but adds CPU and memory overhead, which can eat your gains.
+One catch: caching object references makes accidental mutation easier. If you go this route, freeze your cached values or be careful about who touches them. Deep-cloning is safer but adds CPU and memory overhead, which can eat your gains.
 
 (The caching in this service got interesting enough that I wrote a [separate post about it](./beyond-basic-caching).)
 
